@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import Splash from "./src/scenes/Splash";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>RBK space </Text>
+      {/* <Text>RBK space </Text> */}
+      <Splash name="splash"></Splash>
     </View>
   );
 }

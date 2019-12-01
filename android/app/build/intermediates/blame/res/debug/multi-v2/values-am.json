@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rbk-02/Desktop/rbk-mobile-space/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-am/values-am.xml",
+            "outputFile": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-am/values-am.xml",
             "map": [
                 {
                     "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/core-1.0.0.aar/2a8ff49166804463459d37004f64ce00/res/values-am/values-am.xml",

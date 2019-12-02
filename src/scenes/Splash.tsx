@@ -4,7 +4,8 @@ import { thisTypeAnnotation } from "@babel/types";
 import HomePage from "./HomePage";
 import styles from "../styles/styles";
 import Login from "./Login";
-
+import SimpleTabsContainer from "./SimpleTabs";
+import AppContainer from "./App";
 export interface Props {
   name: string;
 }
@@ -38,7 +39,12 @@ export default class App extends React.Component<Props, State> {
     } else if (this.state.isLogin) {
       return <HomePage></HomePage>;
     } else {
-      return <Login style={styles.loginContainer} name="login"></Login>;
+      return (
+        <View style={styles.loginContainer}>
+          {/* <Login name="login"></Login> */}
+          <AppContainer></AppContainer>
+        </View>
+      );
     }
   }
 }

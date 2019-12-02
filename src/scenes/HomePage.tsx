@@ -1,18 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-export default function HomePage() {
-  return (
-    <View style={styles.container}>
-      <Text>TEST</Text>
-    </View>
-  );
-}
+import styles from "../styles/styles";
+export interface Props {}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+interface State {}
+
+export default class HomePage extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
   }
-});
+
+  render() {
+    return (
+      <View>
+        <Text>HomePage</Text>
+      </View>
+    );
+  }
+}

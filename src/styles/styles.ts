@@ -12,7 +12,6 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: styleIndex.Colors.white,
     width: "100%",
-    alignItems: "center",
     justifyContent: "center"
   },
   ImageIconStyle: {

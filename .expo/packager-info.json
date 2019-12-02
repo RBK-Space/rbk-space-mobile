@@ -2,8 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2443,
-  "expoServerNgrokUrl": "https://8n-vmh.anonymous.rbk-mobile-space.exp.direct",
-  "packagerNgrokUrl": "https://packager.8n-vmh.anonymous.rbk-mobile-space.exp.direct",
-  "ngrokPid": 2474
+  "packagerPid": 16400,
+  "expoServerNgrokUrl": "https://8n-vmh.anonymous.rbkmobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.8n-vmh.anonymous.rbkmobile.exp.direct",
+  "ngrokPid": 16426,
+  "webpackServerPort": 19006
 }

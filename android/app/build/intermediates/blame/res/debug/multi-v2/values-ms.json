@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rbk-02/Desktop/rbk-mobile-space/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ms/values-ms.xml",
+            "outputFile": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ms/values-ms.xml",
             "map": [
                 {
                     "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/jetified-play-services-base-16.0.1.aar/259b5451804755376e6e34670d6152e9/res/values-ms/values.xml",

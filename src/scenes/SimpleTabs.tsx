@@ -13,12 +13,12 @@ import {
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Button } from "../components/ButtonWithMargin";
 import SampleText from "./SampleText";
-import HomePage from "./HomePage";
+import HomeScreen from "./HomeScreen";
+import PeopleScreen from "./PeopleScreen";
+import posts from "../data/dummy.js";
+import users from "../data/users.js";
+import ProfileScreen from "./ProfileScreen";
 
-const TEXT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a hendrerit dui, id consectetur nulla. Curabitur mattis sapien nunc, quis dignissim eros venenatis sit amet. Praesent rutrum dapibus diam quis eleifend. Donec vulputate quis purus sed vulputate. Fusce ipsum felis, cursus at congue vel, consectetur tincidunt purus. Pellentesque et fringilla lorem. In at augue malesuada, sollicitudin ex ut, convallis elit. Curabitur metus nibh, consequat vel libero sit amet, iaculis congue nisl. Maecenas eleifend sodales sapien, fringilla sagittis nisi ornare volutpat. Integer tellus enim, volutpat vitae nisl et, dignissim pharetra leo. Sed sit amet efficitur sapien, at tristique sapien. Aenean dignissim semper sagittis. Nullam sit amet volutpat mi.
-Curabitur auctor orci et justo molestie iaculis. Integer elementum tortor ac ipsum egestas pharetra. Etiam ultrices elementum pharetra. Maecenas lobortis ultrices risus dignissim luctus. Nunc malesuada cursus posuere. Vestibulum tristique lectus pretium pellentesque pellentesque. Nunc ac nisi lacus. Duis ultrices dui ac viverra ullamcorper. Morbi placerat laoreet lacus sit amet ullamcorper.
-Nulla convallis pulvinar hendrerit. Nulla mattis sem et aliquam ultrices. Nam egestas magna leo, nec luctus turpis sollicitudin ac. Sed id leo luctus, lobortis tortor ut, rhoncus ex. Aliquam gravida enim ac dapibus ultricies. Vestibulum at interdum est, et vehicula nibh. Phasellus dignissim iaculis rhoncus. Vestibulum tempus leo lectus, quis euismod metus ullamcorper quis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut id ipsum at enim eleifend porttitor id quis metus. Proin bibendum ornare iaculis. Duis elementum lacus vel cursus efficitur. Nunc eu tortor sed risus lacinia scelerisque.
-Praesent lobortis elit sit amet mauris pulvinar, viverra condimentum massa pellentesque. Curabitur massa ex, dignissim eget neque at, fringilla consectetur justo. Cras sollicitudin vel ligula sed cursus. Aliquam porta sem hendrerit diam porta ultricies. Sed eu mi erat. Curabitur id justo vel tortor hendrerit vestibulum id eget est. Morbi eros magna, placerat id diam ut, varius sollicitudin mi. Curabitur pretium finibus accumsan.`;
 const MyNavScreen = ({
   navigation,
   banner
@@ -27,7 +27,7 @@ const MyNavScreen = ({
   banner: string;
 }) => (
   <ScrollView style={{ flex: 1 }}>
-    <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
+    {/* <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
       <SampleText>{banner}</SampleText>
       <Button
         onPress={() => navigation.navigate("Home")}
@@ -47,31 +47,31 @@ const MyNavScreen = ({
         </Themed.Text>
       ))}
       <Themed.StatusBar />
-    </SafeAreaView>
+    </SafeAreaView> */}
   </ScrollView>
 );
 
-const MyListScreen = () => (
-  <FlatList
-    data={TEXT.split("\n")}
-    style={{ paddingTop: 10 }}
-    keyExtractor={(_, index) => index.toString()}
-    renderItem={({ item }) => (
-      <Themed.Text
-        style={{ fontSize: 16, marginVertical: 10, marginHorizontal: 8 }}
-      >
-        {item}
-      </Themed.Text>
-    )}
-  />
-);
+// const MyListScreen = () => (
+//   <FlatList
+//     data={TEXT.split("\n")}
+//     style={{ paddingTop: 10 }}
+//     keyExtractor={(_, index) => index.toString()}
+//     renderItem={({ item }) => (
+//       <Themed.Text
+//         style={{ fontSize: 16, marginVertical: 10, marginHorizontal: 8 }}
+//       >
+//         {item}
+//       </Themed.Text>
+//     )}
+//   />
+// );
 
 const MyHomeScreen = ({
   navigation
 }: {
   navigation: NavigationScreenProp<NavigationState>;
-}) => <MyNavScreen banner="Home Tab" navigation={navigation} />;
-
+}) => <HomeScreen posts={posts} />;
+// }) => <HomePage banner="Home Tab" navigation={navigation} />;
 MyHomeScreen.navigationOptions = {
   tabBarIcon: ({
     tintColor,
@@ -93,7 +93,7 @@ MyHomeScreen.navigationOptions = {
     testID: "TEST_ID_HOME"
   }
 };
-MyListScreen.navigationOptions = MyHomeScreen.navigationOptions;
+// MyListScreen.navigationOptions = MyHomeScreen.navigationOptions;
 
 interface MyPeopleScreenProps {
   navigation: NavigationScreenProp<NavigationState>;
@@ -137,14 +137,14 @@ class MyPeopleScreen extends React.Component<MyPeopleScreenProps> {
   };
   render() {
     const { navigation } = this.props;
-    return <MyNavScreen banner="People Tab" navigation={navigation} />;
+    return <PeopleScreen users={users} />;
   }
 }
 
-interface MyChatScreenProps {
+interface MyProfileScreenProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
-class MyChatScreen extends React.Component<MyChatScreenProps> {
+class MyProfileScreen extends React.Component<MyProfileScreenProps> {
   static navigationOptions = {
     tabBarIcon: ({
       tintColor,
@@ -155,7 +155,7 @@ class MyChatScreen extends React.Component<MyChatScreenProps> {
       horizontal: boolean;
     }) => (
       <Ionicons
-        name="user"
+        name="ios-people"
         size={horizontal ? 20 : 26}
         style={{ color: tintColor }}
       />
@@ -184,7 +184,7 @@ class MyChatScreen extends React.Component<MyChatScreenProps> {
   render() {
     const { navigation } = this.props;
     // return <MyNavScreen banner="Chat Tab" navigation={navigation} />;
-    return <HomePage></HomePage>;
+    return <ProfileScreen data={users[0]}></ProfileScreen>;
   }
 }
 
@@ -216,11 +216,11 @@ const SimpleTabs = createBottomTabNavigator(
   {
     Home: {
       path: "home",
-      screen: MyListScreen
+      screen: MyHomeScreen
     },
     Chat: {
       path: "chat",
-      screen: MyChatScreen
+      screen: MyProfileScreen
     },
     People: {
       path: "cart",
@@ -251,6 +251,7 @@ class SimpleTabsContainer extends React.Component<SimpleTabsContainerProps> {
   s3: NavigationEventSubscription | null = null;
 
   componentDidMount() {
+    console.log("posts>>", posts);
     // this.s0! = this.props.navigation.addListener('willFocus', this.onAction);
     // this.s1! = this.props.navigation.addListener('didFocus', this.onAction);
     // this.s2! = this.props.navigation.addListener('willBlur', this.onAction);

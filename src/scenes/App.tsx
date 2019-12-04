@@ -1,12 +1,8 @@
-import * as React from "react";
-import { Button, View, Text } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import Login from "./Login";
-import HomePage from "./HomePage";
+import HomePage from "./HomeScreen";
 import SimpleTabs from "./SimpleTabs";
-
-import { StyleSheet } from "react-native";
 
 const RootStack = createStackNavigator(
   {

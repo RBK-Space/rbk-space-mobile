@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { thisTypeAnnotation } from "@babel/types";
-import HomePage from "./HomePage";
+import HomeScreen from "./HomeScreen";
 import styles from "../styles/styles";
 import Login from "./Login";
 import SimpleTabsContainer from "./SimpleTabs";
@@ -37,7 +37,7 @@ export default class App extends React.Component<Props, State> {
         </View>
       );
     } else if (this.state.isLogin) {
-      return <HomePage></HomePage>;
+      // return <HomeScreen ></HomeScreen>;
     } else {
       return (
         <View style={styles.loginContainer}>

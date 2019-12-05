@@ -8,10 +8,10 @@ import PeopleScreen from "../src/scenes/PeopleScreen";
 
 // Note: test renderer must be required after react-native.
 import renderer from "react-test-renderer";
-
-// it("renders App correctly", () => {
-//   renderer.create(<App />);
-// });
+jest.useFakeTimers();
+it("renders App correctly", () => {
+  renderer.create(<App />);
+});
 
 it("renders Splash correctly", () => {
   renderer.create(<Splash />);

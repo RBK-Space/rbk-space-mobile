@@ -38,7 +38,7 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 80 / 2,
-    padding: 8,
+    padding: 8
   },
   userImage: { width: 60, height: 60, borderRadius: 60 / 2, padding: 8 },
   ProfileImage: {
@@ -50,6 +50,18 @@ export default StyleSheet.create({
   social_container: {
     flex: 1,
     padding: 16,
+    justifyContent: "center"
+  },
+  tag_container: {
+    backgroundColor: styleIndex.Colors.lightgray,
+    borderRadius: 10,
+    paddingStart: 12,
+    paddingEnd: 12,
+    paddingTop: 4,
+    margin: 8,
+    paddingBottom: 4,
+    alignContent: "center",
+    alignItems: "center",
     justifyContent: "center"
   }
 });

@@ -32,4 +32,6 @@ target 'proj' do
 
   use_unimodules!
 
+  pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+
 end

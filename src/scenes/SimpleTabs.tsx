@@ -18,6 +18,7 @@ import PeopleScreen from "./PeopleScreen";
 import posts from "../data/dummy.js";
 import users from "../data/users.js";
 import ProfileScreen from "./ProfileScreen";
+import profile from "../data/profile.js";
 
 const MyNavScreen = ({
   navigation,
@@ -162,29 +163,18 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps> {
     ),
     tabBarLabel: "Profile"
   };
-  s0: NavigationEventSubscription | null = null;
-  s1: NavigationEventSubscription | null = null;
-  s2: NavigationEventSubscription | null = null;
-  s3: NavigationEventSubscription | null = null;
+
   componentDidMount() {
-    // this.s0! = this.props.navigation.addListener('willFocus', this.onEvent);
-    // this.s1! = this.props.navigation.addListener('didFocus', this.onEvent);
-    // this.s2! = this.props.navigation.addListener('willBlur', this.onEvent);
-    // this.s3! = this.props.navigation.addListener('didBlur', this.onEvent);
+    // console.log(profile);
   }
-  componentWillUnmount() {
-    // this.s0!.remove();
-    // this.s1!.remove();
-    // this.s2!.remove();
-    // this.s3!.remove();
-  }
+
   onEvent = (a: NavigationEventPayload) => {
     console.log("EVENT ON CHAT TAB", a.type, a);
   };
   render() {
     const { navigation } = this.props;
     // return <MyNavScreen banner="Chat Tab" navigation={navigation} />;
-    return <ProfileScreen data={users[0]}></ProfileScreen>;
+    return <ProfileScreen data={profile}></ProfileScreen>;
   }
 }
 

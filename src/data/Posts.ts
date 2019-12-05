@@ -3,7 +3,7 @@ import User from "./User";
 export default interface PostItem {
   postId: Number;
   userName: String;
-  image: String;
+  image: string;
   postBody: string;
-  createdAt: String;
+  createdAt: string;
 }

@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Image, Text, Alert, Linking } from "react-native";
+import { View, Image, Text, Alert, Linking, ScrollView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import userItem from "../data/User";
+import UserProfile from "../data/UserProfile";
 import styles from "../styles/styles";
 import SocialButton from "../components/SocailButton";
+import UserProfileTab from "../scencesComponents/UserProfileTab";
 export interface Props {
-  data: userItem;
+  data: UserProfile;
 }
 
 interface State {}
@@ -13,11 +14,13 @@ interface State {}
 export default class ProfileScreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    // console.log(this.props.data);
+    // console.log("this.props.data.image");
   }
 
   render() {
     return (
-      <View style={styles.social_container}>
+      <View style={{ padding: 8, flex: 1 }}>
         <Image
           source={{
             uri: this.props.data.image
@@ -53,6 +56,7 @@ export default class ProfileScreen extends React.Component<Props, State> {
             onPress={() => console.log("linkedin")}
           />
         </View>
+        <UserProfileTab data={this.props.data}></UserProfileTab>
       </View>
     );
   }

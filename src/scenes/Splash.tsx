@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { thisTypeAnnotation } from "@babel/types";
-import HomePage from "./HomePage";
+import HomeScreen from "./HomeScreen";
 import styles from "../styles/styles";
 import Login from "./Login";
-
+import SimpleTabsContainer from "./SimpleTabs";
+import AppContainer from "./App";
 export interface Props {
   name: string;
 }
@@ -36,9 +37,14 @@ export default class App extends React.Component<Props, State> {
         </View>
       );
     } else if (this.state.isLogin) {
-      return <HomePage></HomePage>;
+      // return <HomeScreen ></HomeScreen>;
     } else {
-      return <Login style={styles.loginContainer} name="login"></Login>;
+      return (
+        <View style={styles.loginContainer}>
+          {/* <Login name="login"></Login> */}
+          <AppContainer></AppContainer>
+        </View>
+      );
     }
   }
 }

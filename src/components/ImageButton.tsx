@@ -4,14 +4,11 @@ import { Text, View, TouchableOpacity, Image } from "react-native";
 const images = {
   github: {
     uri: require("../assets/images/ic_github_logo.png")
-  },
-  banner: {
-    //   uri: require('your-image-path/banner.png')
   }
 };
 export interface Props {
   image: string;
-  text: string;
+  text?: string;
   direction?: Number;
   onPress: () => void;
 }

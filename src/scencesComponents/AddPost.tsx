@@ -27,7 +27,8 @@ export default class AddPost extends React.Component<Props, State> {
             margin: 10,
             borderColor: "gray",
             borderRadius: 4,
-            borderWidth: 0.5
+            borderWidth: 0.5,
+            justifyContent: "flex-start"
           }}
           onChangeText={text => this.onChangeText(text)}
         />

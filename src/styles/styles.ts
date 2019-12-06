@@ -63,5 +63,9 @@ export default StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center"
+  },
+  defaultContainer: {
+    flex: 1,
+    padding: 10
   }
 });

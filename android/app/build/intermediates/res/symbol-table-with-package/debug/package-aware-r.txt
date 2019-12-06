@@ -986,6 +986,7 @@ layout browser_actions_context_menu_row
 layout custom_dialog
 layout dev_loading_view
 layout fps_view
+layout list_item
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -1254,6 +1255,7 @@ style CalendarDatePickerDialog
 style CalendarDatePickerStyle
 style ClockTimePickerDialog
 style ClockTimePickerStyle
+style DefaultExplainingPermissionsTheme
 style DialogAnimationFade
 style DialogAnimationSlide
 style Platform_AppCompat
@@ -1512,4 +1514,5 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
 xml file_system_provider_paths
+xml provider_paths
 xml rn_dev_preferences

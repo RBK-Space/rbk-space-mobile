@@ -5,8 +5,10 @@ import UserProfile from "../data/UserProfile";
 import styles from "../styles/styles";
 import SocialButton from "../components/SocailButton";
 import UserProfileTab from "../scencesComponents/UserProfileTab";
+import Button from "../components/Button";
 export interface Props {
   data: UserProfile;
+  navigation?: any;
 }
 
 interface State {}
@@ -21,6 +23,13 @@ export default class ProfileScreen extends React.Component<Props, State> {
   render() {
     return (
       <View style={{ padding: 8, flex: 1 }}>
+        <View style={{ alignSelf: "baseline", justifyContent: "flex-end" }}>
+          <Button
+            title="Edit"
+            onPress={() => this.props.navigation.navigate("EditProfileScreen")}
+          ></Button>
+        </View>
+
         <Image
           source={{
             uri: this.props.data.image

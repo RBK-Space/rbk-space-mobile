@@ -19,60 +19,14 @@ import posts from "../data/dummy.js";
 import users from "../data/users.js";
 import ProfileScreen from "./ProfileScreen";
 import profile from "../data/profile.js";
-
-const MyNavScreen = ({
-  navigation,
-  banner
-}: {
-  navigation: NavigationScreenProp<NavigationState>;
-  banner: string;
-}) => (
-  <ScrollView style={{ flex: 1 }}>
-    {/* <SafeAreaView forceInset={{ horizontal: "always", top: "always" }}>
-      <SampleText>{banner}</SampleText>
-      <Button
-        onPress={() => navigation.navigate("Home")}
-        title="Go to home tab"
-      />
-      <Button
-        onPress={() => navigation.navigate("Settings")}
-        title="Go to settings tab"
-      />
-      <Button onPress={() => navigation.goBack(null)} title="Go back" />
-      {TEXT.split("\n").map((p, n) => (
-        <Themed.Text
-          key={n}
-          style={{ marginVertical: 10, marginHorizontal: 8 }}
-        >
-          {p}
-        </Themed.Text>
-      ))}
-      <Themed.StatusBar />
-    </SafeAreaView> */}
-  </ScrollView>
-);
-
-// const MyListScreen = () => (
-//   <FlatList
-//     data={TEXT.split("\n")}
-//     style={{ paddingTop: 10 }}
-//     keyExtractor={(_, index) => index.toString()}
-//     renderItem={({ item }) => (
-//       <Themed.Text
-//         style={{ fontSize: 16, marginVertical: 10, marginHorizontal: 8 }}
-//       >
-//         {item}
-//       </Themed.Text>
-//     )}
-//   />
-// );
+import EditProfileScreen from "./EditProfileScreen";
+import { View } from "react-native";
 
 const MyHomeScreen = ({
   navigation
 }: {
   navigation: NavigationScreenProp<NavigationState>;
 }) => <HomeScreen posts={posts} />;
-// }) => <HomePage banner="Home Tab" navigation={navigation} />;
 MyHomeScreen.navigationOptions = {
   tabBarIcon: ({
     tintColor,
@@ -94,7 +48,6 @@ MyHomeScreen.navigationOptions = {
     testID: "TEST_ID_HOME"
   }
 };
-// MyListScreen.navigationOptions = MyHomeScreen.navigationOptions;
 
 interface MyPeopleScreenProps {
   navigation: NavigationScreenProp<NavigationState>;
@@ -117,27 +70,11 @@ class MyPeopleScreen extends React.Component<MyPeopleScreenProps> {
     ),
     tabBarLabel: "People"
   };
-  s0: NavigationEventSubscription | null = null;
-  s1: NavigationEventSubscription | null = null;
-  s2: NavigationEventSubscription | null = null;
-  s3: NavigationEventSubscription | null = null;
-  componentDidMount() {
-    // this.s0! = this.props.navigation.addListener('willFocus', this.onEvent);
-    // this.s1! = this.props.navigation.addListener('didFocus', this.onEvent);
-    // this.s2! = this.props.navigation.addListener('willBlur', this.onEvent);
-    // this.s3! = this.props.navigation.addListener('didBlur', this.onEvent);
-  }
-  componentWillUnmount() {
-    // this.s0!.remove();
-    // this.s1!.remove();
-    // this.s2!.remove();
-    // this.s3!.remove();
-  }
+
   onEvent = (a: NavigationEventPayload) => {
     console.log("EVENT ON PEOPLE TAB", a.type, a);
   };
   render() {
-    const { navigation } = this.props;
     return <PeopleScreen users={users} />;
   }
 }
@@ -165,24 +102,25 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps> {
   };
 
   componentDidMount() {
-    // console.log(profile);
+    console.log(profile);
   }
 
   onEvent = (a: NavigationEventPayload) => {
     console.log("EVENT ON CHAT TAB", a.type, a);
   };
   render() {
-    const { navigation } = this.props;
-    // return <MyNavScreen banner="Chat Tab" navigation={navigation} />;
-    return <ProfileScreen data={profile}></ProfileScreen>;
+    return (
+      <View style={{ flex: 1 }}>
+        <ProfileScreen
+          data={profile}
+          navigation={this.props.navigation}
+        ></ProfileScreen>
+      </View>
+    );
   }
 }
 
-const MySettingsScreen = ({
-  navigation
-}: {
-  navigation: NavigationScreenProp<NavigationState>;
-}) => <MyNavScreen banner="Settings Tab" navigation={navigation} />;
+const MySettingsScreen = ({}) => <EditProfileScreen />;
 
 MySettingsScreen.navigationOptions = {
   tabBarIcon: ({

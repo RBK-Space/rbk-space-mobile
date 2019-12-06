@@ -3,6 +3,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import Login from "./Login";
 import HomePage from "./HomeScreen";
 import SimpleTabs from "./SimpleTabs";
+import EditProfileScreen from "./EditProfileScreen";
 
 const RootStack = createStackNavigator(
   {
@@ -14,6 +15,9 @@ const RootStack = createStackNavigator(
     },
     SimpleTabs: {
       screen: SimpleTabs
+    },
+    EditProfileScreen: {
+      screen: EditProfileScreen
     }
   },
   {
@@ -22,13 +26,4 @@ const RootStack = createStackNavigator(
 );
 
 const AppContainer = createAppContainer(RootStack);
-
-// export interface Props {
-//   style?: Object;
-// }
 export default AppContainer;
-// export default class App extends React.Component<Props> {
-//   render() {
-//     return <AppContainer />;
-//   }
-// }

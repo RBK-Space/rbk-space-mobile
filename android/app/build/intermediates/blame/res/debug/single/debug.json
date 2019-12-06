@@ -176,6 +176,10 @@
         "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-rc01.aar/9f173c886197367f98b3d8aeb783eda6/res/drawable-mdpi-v4/abc_ic_menu_share_mtrl_alpha.png"
     },
     {
+        "merged": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/res/merged/debug/layout_list_item.xml.flat",
+        "source": "/Users/rbk-02/RBKMOBILE/node_modules/react-native-image-picker/android/build/intermediates/packaged_res/debug/layout/list_item.xml"
+    },
+    {
         "merged": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/res/merged/debug/layout_abc_action_bar_title_item.xml.flat",
         "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-rc01.aar/9f173c886197367f98b3d8aeb783eda6/res/layout/abc_action_bar_title_item.xml"
     },
@@ -330,6 +334,10 @@
     {
         "merged": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/res/merged/debug/layout_abc_popup_menu_header_item_layout.xml.flat",
         "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-rc01.aar/9f173c886197367f98b3d8aeb783eda6/res/layout/abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/res/merged/debug/xml_provider_paths.xml.flat",
+        "source": "/Users/rbk-02/RBKMOBILE/node_modules/react-native-image-picker/android/build/intermediates/packaged_res/debug/xml/provider_paths.xml"
     },
     {
         "merged": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",

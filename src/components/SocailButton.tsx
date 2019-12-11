@@ -24,7 +24,7 @@ export interface Props {
 export default class SocialButton extends Component<Props> {
   constructor(props: Props) {
     super(props);
-    console.log("tagggg", props);
+    // console.log("tagggg", props);
   }
   render() {
     return (

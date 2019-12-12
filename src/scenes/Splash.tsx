@@ -6,6 +6,7 @@ import styles from "../styles/styles";
 import Login from "./Login";
 import SimpleTabsContainer from "./SimpleTabs";
 import AppContainer from "./App";
+import Test from "./WebLoginSceen"
 export interface Props {
   name: string;
 }
@@ -43,6 +44,8 @@ export default class App extends React.Component<Props, State> {
         <View style={styles.loginContainer}>
           {/* <Login name="login"></Login> */}
           <AppContainer></AppContainer>
+          {/* <Test></Test> */}
+          
         </View>
       );
     }

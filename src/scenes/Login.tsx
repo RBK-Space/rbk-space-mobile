@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Button, Alert } from "react-native";
-import styles from "../styles/styles";
+import { View, Linking } from "react-native";
 import ImageButton from "../components/ImageButton";
-import { NavigationStackOptions } from "react-navigation-stack";
+import SharedPreferences from 'react-native-shared-preferences';
 
-export interface Props {
+
+interface Props {
   name: string;
   style?: Object;
   navigation?: any;
@@ -12,11 +12,21 @@ export interface Props {
 
 interface State {
   isLoading: boolean;
+  redirectData?: any;
+  result?: any
 }
+
 
 export default class Login extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+  }
+
+  signWithGithub() {
+
+    // SharedPreferences.setItem("userID", "61");
+    this.props.navigation.replace("WebLoginSceen")
   }
 
   render() {
@@ -27,9 +37,12 @@ export default class Login extends React.Component<Props, State> {
           image="github"
           text="Login with github"
           border-Width="2px"
-          onPress={() => this.props.navigation.navigate("SimpleTabs")}
+          onPress={() => {
+            this.signWithGithub()
+          }}
         />
       </View>
+
     );
   }
 }

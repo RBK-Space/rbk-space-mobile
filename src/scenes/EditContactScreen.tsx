@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Alert, Text } from "react-native";
+import { View, Button, Alert, Text, ScrollView } from "react-native";
 export interface Props { }
 import { TextInput } from "react-native-paper";
 import styles from "../styles/styles";
@@ -16,6 +16,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
 
     render() {
         return (
+            <ScrollView>
             <View style={styles.defaultContainer}>
                 <TextInput
                     mode="outlined"
@@ -41,7 +42,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                     // value={this.state.text}
                     onChangeText={text => this.setState({ text })}
                 />
-            </View>
+            </View></ScrollView>
         );
     }
 }

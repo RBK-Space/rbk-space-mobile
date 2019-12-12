@@ -4,6 +4,8 @@ import Login from "./Login";
 import HomePage from "./HomeScreen";
 import SimpleTabs from "./SimpleTabs";
 import EditProfileScreen from "./EditProfileScreen";
+import ProfileScreen from "./ProfileScreen";
+import WebLoginSceen from "./WebLoginSceen";
 
 const RootStack = createStackNavigator(
   {
@@ -18,6 +20,12 @@ const RootStack = createStackNavigator(
     },
     EditProfileScreen: {
       screen: EditProfileScreen
+    },
+    ProfileScreen: {
+      screen: ProfileScreen
+    },
+    WebLoginSceen: {
+      screen: WebLoginSceen
     }
   },
   {

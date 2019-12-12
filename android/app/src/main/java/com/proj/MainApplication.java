@@ -1,8 +1,10 @@
 package com.proj;
 
 import android.app.Application;
+          import io.fullstack.oauth.OAuthManagerPackage;
 
 import com.facebook.react.ReactApplication;
+import com.dialogprogress.DialogProgressPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -13,6 +15,7 @@ import com.proj.generated.BasePackageList;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
+import in.sriraman.sharedpreferences.RNSharedPreferencesReactPackage;  // <--- import 
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
@@ -42,12 +45,17 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new DialogProgressPackage(),
             new ImagePickerPackage(),
             new RNCViewPagerPackage(),
           new ReanimatedPackage(),
           new RNGestureHandlerPackage(),
           new RNScreensPackage(),
-          new ModuleRegistryAdapter(mModuleRegistryProvider)
+                    new RNSharedPreferencesReactPackage() ,
+
+          new ModuleRegistryAdapter(mModuleRegistryProvider),          new OAuthManagerPackage()
+
+
       );
     }
 

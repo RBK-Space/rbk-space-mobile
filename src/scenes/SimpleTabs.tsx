@@ -21,6 +21,9 @@ import ProfileScreen from "./ProfileScreen";
 import profile from "../data/profile.js";
 import EditProfileScreen from "./EditProfileScreen";
 import { View } from "react-native";
+import userItem from "../data/User";
+
+import Posts from '../data/Posts'
 
 const MyHomeScreen = ({
   navigation
@@ -36,12 +39,12 @@ MyHomeScreen.navigationOptions = {
     focused: boolean;
     horizontal: boolean;
   }) => (
-    <Ionicons
-      name="ios-home"
-      size={horizontal ? 20 : 26}
-      style={{ color: tintColor }}
-    />
-  ),
+      <Ionicons
+        name="ios-home"
+        size={horizontal ? 20 : 26}
+        style={{ color: tintColor }}
+      />
+    ),
   tabBarLabel: "Home",
   tabBarTestIDProps: {
     accessibilityLabel: "TEST_ID_HOME_ACLBL",
@@ -62,12 +65,12 @@ class MyPeopleScreen extends React.Component<MyPeopleScreenProps> {
       focused: boolean;
       horizontal: boolean;
     }) => (
-      <Ionicons
-        name="ios-people"
-        size={horizontal ? 20 : 26}
-        style={{ color: tintColor }}
-      />
-    ),
+        <Ionicons
+          name="ios-people"
+          size={horizontal ? 20 : 26}
+          style={{ color: tintColor }}
+        />
+      ),
     tabBarLabel: "People"
   };
 
@@ -75,14 +78,28 @@ class MyPeopleScreen extends React.Component<MyPeopleScreenProps> {
     console.log("EVENT ON PEOPLE TAB", a.type, a);
   };
   render() {
-    return <PeopleScreen users={users} />;
+    return <PeopleScreen navigation={this.props.navigation}
+      users={users} />;
   }
 }
 
 interface MyProfileScreenProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
-class MyProfileScreen extends React.Component<MyProfileScreenProps> {
+interface MyProfileState {
+  userID: string;
+  profile: userItem;
+}
+class MyProfileScreen extends React.Component<MyProfileScreenProps, MyProfileState> {
+  id: string;
+
+  constructor(props: MyProfileScreenProps) {
+    super(props)
+    this.state = { userID: "", profile: profile }
+
+  
+  }
+
   static navigationOptions = {
     tabBarIcon: ({
       tintColor,
@@ -92,18 +109,18 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps> {
       focused: boolean;
       horizontal: boolean;
     }) => (
-      <Ionicons
-        name="ios-people"
-        size={horizontal ? 20 : 26}
-        style={{ color: tintColor }}
-      />
-    ),
+        <Ionicons
+          name="ios-people"
+          size={horizontal ? 20 : 26}
+          style={{ color: tintColor }}
+        />
+      ),
     tabBarLabel: "Profile"
   };
 
-  componentDidMount() {
-    console.log(profile);
-  }
+  // componentDidMount() {
+  //   console.log(profile);
+  // }
 
   onEvent = (a: NavigationEventPayload) => {
     console.log("EVENT ON CHAT TAB", a.type, a);
@@ -112,7 +129,7 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps> {
     return (
       <View style={{ flex: 1 }}>
         <ProfileScreen
-          data={profile}
+          data={this.state.profile}
           navigation={this.props.navigation}
         ></ProfileScreen>
       </View>
@@ -120,7 +137,7 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps> {
   }
 }
 
-const MySettingsScreen = ({}) => <EditProfileScreen />;
+const MySettingsScreen = ({ }) => <EditProfileScreen />;
 
 MySettingsScreen.navigationOptions = {
   tabBarIcon: ({
@@ -131,12 +148,12 @@ MySettingsScreen.navigationOptions = {
     focused: boolean;
     horizontal: boolean;
   }) => (
-    <Ionicons
-      name="ios-settings"
-      size={horizontal ? 20 : 26}
-      style={{ color: tintColor }}
-    />
-  ),
+      <Ionicons
+        name="ios-settings"
+        size={horizontal ? 20 : 26}
+        style={{ color: tintColor }}
+      />
+    ),
   tabBarLabel: "Settings"
 };
 
@@ -171,26 +188,28 @@ interface SimpleTabsContainerProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
 
-class SimpleTabsContainer extends React.Component<SimpleTabsContainerProps> {
+interface State {
+  posts: Posts
+}
+class SimpleTabsContainer extends React.Component<SimpleTabsContainerProps, State> {
   static router = SimpleTabs.router;
-  s0: NavigationEventSubscription | null = null;
-  s1: NavigationEventSubscription | null = null;
-  s2: NavigationEventSubscription | null = null;
-  s3: NavigationEventSubscription | null = null;
 
-  componentDidMount() {
-    console.log("posts>>", posts);
-    // this.s0! = this.props.navigation.addListener('willFocus', this.onAction);
-    // this.s1! = this.props.navigation.addListener('didFocus', this.onAction);
-    // this.s2! = this.props.navigation.addListener('willBlur', this.onAction);
-    // this.s3! = this.props.navigation.addListener('didBlur', this.onAction);
-  }
-  componentWillUnmount() {
-    // this.s0!.remove();
-    // this.s1!.remove();
-    // this.s2!.remove();
-    // this.s3!.remove();
-  }
+  // componentDidMount() {
+  //   const config = {
+  //     url: POSTS_URL,
+  //     method: 'GET',
+  //   };
+  //   const request = CallAPI(config, respnse => this.onLoginSuccess(respnse), error => this.onLoginError(error));
+  // }
+  // onLoginSuccess(response) {
+  //   console.log(response)
+
+  // }
+
+  // onLoginError(error) {
+  //   console.log('onError: ', error);
+  // }
+
   onAction = (a: NavigationEventPayload) => {
     console.log("TABS EVENT", a.type, a);
   };

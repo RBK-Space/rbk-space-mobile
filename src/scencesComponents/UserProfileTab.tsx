@@ -1,13 +1,13 @@
 import * as React from "react";
 import { View, Text } from "react-native";
 import { ScrollView, FlatList } from "react-native-gesture-handler";
-import UserProfile from "../data/UserProfile";
+import UserItem from "../data/User";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import TagComponent from "../components/TagComponent";
 import PortofolioScreen from "../scenes/PortofoiloScreen";
 
 export interface Props {
-    data: UserProfile;
+    data: UserItem;
 }
 
 export default class TabViewExample extends React.Component<Props> {
@@ -21,13 +21,16 @@ export default class TabViewExample extends React.Component<Props> {
                     <ScrollView>
                         <View>
                             <Text>
-                                {`Hello!My name is ${this.props.data.userName} from ${this.props.data.cohort} I'm a ${this.props.data.job}
+                                {`Hello!My name is ${this.props.data.username} from ${this.props.data.cohort} I'm a ${this.props.data.empStat}
                 `}
                             </Text>
 
                             <Text style={{ paddingTop: 20 }}>
+                                {/* {`Employment Status :${
+                                    this.props.data.empStat ? "employed" : "not yet"
+                                    } `}  */}
                                 {`Employment Status :${
-                                    this.props.data.employment ? "employed" : "not yet"
+                                    this.props.data.empStat
                                     } `}
                             </Text>
                         </View>

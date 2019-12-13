@@ -44,8 +44,9 @@ export default class HomeScreen extends React.Component<Props, State> {
   }
   onLoginSuccess(response) {
     console.log(">>>.", response)
+
     this.setState({
-      users: response.data[0]
+      users: response.data
     })
 
   }

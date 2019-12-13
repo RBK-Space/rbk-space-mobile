@@ -4,6 +4,9 @@ import {
     ScrollView,
     Picker,
     FlatList,
+    TextInput,
+    Button,
+    Alert
 } from "react-native";
 import styles from "../styles/styles";
 import UserProfile from "../data/UserProfile";
@@ -12,10 +15,20 @@ import ImagePicker from "react-native-image-picker";
 import { Input } from "react-native-elements";
 import TagComponent from "../components/TagComponent";
 import Skills from "../data/Skills";
+import CallAPI from "../net/ApiUtils.js";
+import URLS from "../net/ApiConst";
+import SharedPreferences from 'react-native-shared-preferences';
+import DialogProgress from 'react-native-dialog-progress'
+import User from "../data/User";
 
 export interface Props {
     style?: Object;
-    data?: UserProfile;
+    data?: User;
+}
+const dialogOptions = {
+    title: "Loading",
+    message: "This is a message!",
+    isCancelable: true
 }
 
 //get data from Api
@@ -31,6 +44,7 @@ interface State {
     skills: Skills[];
     tag: string;
     refresh: boolean;
+    editData?: any;
 }
 
 export default class EditPtofileBasicInfoScreen extends React.Component<
@@ -41,15 +55,16 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
     constructor(props: Props) {
         super(props);
         this.state = {
+            editData: {},
             tag: "",
-            firstName: this.props.data.userName,
+            firstName: this.props.data.username,
             avatarSource: this.props.data.image,
             cohort: this.props.data.cohort,
-            lastName: this.props.data.userName,
+            lastName: "",
             bio: this.props.data.bio,
             skills: this.props.data.skills,
             refresh: true,
-            emolyment: this.props.data.employment ? "employed" : "not employed",
+            emolyment: this.props.data.empStat,
             cohorts: [
                 "cohort-1",
                 "cohort-2",
@@ -63,14 +78,53 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             employmentState: ["employed", "not employed"]
         };
         this.image = "";
+
+        var that = this
+        SharedPreferences.getItem("userID", function (value) {
+            var data = that.state.editData;
+            data.userId = value;
+            that.setState({ editData: data });
+        });
+
+
     }
+    handleSaveClick() {
+
+        const config = {
+            url: URLS.EDIT_BASE_DATA_URL,
+            method: "POST",
+            data: this.state.editData
+        };
+        const request = CallAPI(
+            config,
+            respnse => this.onLoginSuccess(respnse),
+            error => this.onLoginError(error)
+        );
+        DialogProgress.show(dialogOptions)
+
+    }
+    onLoginSuccess(response) {
+        console.log(">>>.", response);
+        Alert.alert("Success")
+        DialogProgress.hide()
+    }
+
+    onLoginError(error) {
+        console.log("onError: ", error);
+        Alert.alert("Error")
+        DialogProgress.hide()
+    }
+
     handleEditComplete() {
         console.log("done");
-        let tags = this.state.skills;
-        tags.push({ id: 11, name: this.state.tag });
-        this.setState({ skills: tags });
-        console.log(this.state)
+        let tags = this.state.skills || [];
 
+        tags.push({ skillId: new Date().getDate(), skillName: this.state.tag });
+        this.setState({ skills: tags });
+        var data = this.state.editData;
+        data.skills = tags;
+        this.setState({ editData: data });
+        console.log(this.state);
     }
 
     showImage() {
@@ -107,6 +161,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
         return (
             <ScrollView>
                 <View style={styles.defaultContainer}>
+
                     <Avatar
                         rounded
                         title="AM"
@@ -124,24 +179,50 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         placeholder="First Name"
                         errorStyle={{ color: "red" }}
                         errorMessage=""
+                        value={this.state.firstName}
+                        onChangeText={firstName => {
+                            this.setState({ firstName });
+                            var data = this.state.editData;
+                            data.firstName = firstName;
+                            this.setState({ editData: data });
+                        }}
                     />
                     <Input
                         placeholder="Last Name"
                         errorStyle={{ color: "red" }}
                         errorMessage=""
+                        value={this.state.lastName}
+                        onChangeText={lastName => {
+                            this.setState({ lastName });
+                            var data = this.state.editData;
+                            data.lastName = lastName;
+                            this.setState({ editData: data });
+                        }}
                     />
-                    <Input
+                    <TextInput
+                        multiline={true}
                         placeholder="Bio"
-                        errorStyle={{ color: "red" }}
-                        errorMessage=""
+                        value={this.state.bio}
+                        onChangeText={bio => {
+                            this.setState({ bio });
+                            var data = this.state.editData;
+                            data.bio = bio;
+                            this.setState({ editData: data });
+                        }}
                     />
                     <View>
                         <Picker
                             mode="dropdown"
                             selectedValue={this.state.cohort}
                             style={{ height: 50, width: "50%" }}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ cohort: itemValue })}>
+                            onValueChange={(itemValue, itemIndex) => {
+                                this.setState({ cohort: itemValue })
+                                var data = this.state.editData;
+                                data.cohort = itemValue;
+                                this.setState({ editData: data });
+                            }
+                            }
+                        >
                             {serviceItems}
                         </Picker>
                     </View>
@@ -150,8 +231,15 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         mode="dropdown"
                         selectedValue={this.state.emolyment}
                         style={{ height: 50, width: "50%" }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ emolyment: itemValue })}>
+                        onValueChange={(itemValue, itemIndex) => {
+
+
+                            this.setState({ emolyment: itemValue })
+                            var data = this.state.editData;
+                            data.empStat = itemValue;
+                            this.setState({ editData: data });
+                        }}
+                    >
                         {employmentStates}
                     </Picker>
                     <View>
@@ -167,11 +255,14 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         horizontal={true}
                         data={this.state.skills}
                         renderItem={({ item }) => (
-                            <TagComponent title={item.name}></TagComponent>
+                            <TagComponent title={item.skillName}></TagComponent>
                         )}
                         extraData={this.state}
-                        keyExtractor={item => item.id + item.name}
+                        keyExtractor={item => item.skillId + item.skillName}
                     />
+
+                    <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button>
+
                 </View>
             </ScrollView>
         );

@@ -9,7 +9,7 @@ export default interface UserProfile {
   bio: string;
   employment: boolean;
   skills: Skills[];
-  Portofolio: Portofolio[];
+  projects: Portofolio[];
   job: string;
   facebooklink: string;
   githublink: string;

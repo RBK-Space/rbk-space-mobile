@@ -24,6 +24,7 @@ import { View } from "react-native";
 import userItem from "../data/User";
 
 import Posts from '../data/Posts'
+import SettingsScreen from "./SettingsScreen";
 
 const MyHomeScreen = ({
   navigation
@@ -97,7 +98,6 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps, MyProfileSta
     super(props)
     this.state = { userID: "", profile: profile }
 
-  
   }
 
   static navigationOptions = {
@@ -118,13 +118,7 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps, MyProfileSta
     tabBarLabel: "Profile"
   };
 
-  // componentDidMount() {
-  //   console.log(profile);
-  // }
 
-  onEvent = (a: NavigationEventPayload) => {
-    console.log("EVENT ON CHAT TAB", a.type, a);
-  };
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -136,8 +130,11 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps, MyProfileSta
     );
   }
 }
+interface SimpleTabsContainerProps {
+  navigation: NavigationScreenProp<NavigationState>;
+}
 
-const MySettingsScreen = ({ }) => <EditProfileScreen />;
+const MySettingsScreen = (props) => <SettingsScreen navigation={props.navigation} />;
 
 MySettingsScreen.navigationOptions = {
   tabBarIcon: ({

@@ -14,24 +14,12 @@ export default profile = {
     { id: 2, name: "skill2" },
     { id: 1, name: "skill3" }
   ],
-  Portofolio: [
+  projects: [
     {
-      id: 1,
-      title: "titleee",
-      description: "descri",
-      link: "https://github.com/superandrew213/viewpagertest"
-    },
-    {
-      id: 5,
-      title: "titl1",
-      description: "descri",
-      link: "https://github.com/superandrew213/viewpagertest"
-    },
-    {
-      id: 2,
-      title: "title3",
-      description: "descri",
-      link: "https://github.com/superandrew213/viewpagertest"
+      projectId: 1,
+      projectTitle: "titleee",
+      projectDesc: "descri",
+      projectLink: "https://github.com/superandrew213/viewpagertest"
     }
   ],
   job: "react native developer",

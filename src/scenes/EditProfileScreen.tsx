@@ -3,25 +3,28 @@ import EditUserProfileTabs from "../scencesComponents/EditUserProfileTabs";
 import UserProfile from "../data/profile.js";
 import styles from "../styles/styles";
 import { View, Button } from "react-native";
-export interface Props { }
+import User from "../data/User";
+export interface Props {
+    data?: User
+    navigation?: any;
+}
 
-interface State { }
+interface State { data: User }
 
 export default class EditProfileScreen extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+        if (props.navigation.getParam("data")) {
+            this.state = { data: props.navigation.getParam("data") };
+            console.log(this.state.data)
+        }
     }
 
     render() {
         return (
-            <View style={styles.defaultContainer}>
-                <EditUserProfileTabs data={UserProfile}></EditUserProfileTabs>
-                <View
-                    style={{
-                        justifyContent: "flex-end"
-                    }}
-                ></View>
-                <Button title="Save" onPress={() => console.log("save")}></Button>
+
+            <View style={styles.defaultContainer}>{this.state.data ?
+                <EditUserProfileTabs data={this.state.data}></EditUserProfileTabs> : null}
             </View>
         );
     }

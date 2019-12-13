@@ -9,42 +9,56 @@ import Button from "../components/Button";
 import CallAPI from '../net/ApiUtils.js'
 import SharedPreferences from 'react-native-shared-preferences';
 import URLS from '../net/ApiConst';
+import User from "../data/User";
+import PTRView from 'react-native-pull-to-refresh';
+
 export interface Props {
   data: UserItem;
   navigation?: any;
+
 }
 
 interface State {
-  data;
+  data: User;
+  isMine: boolean;
+
 }
+
 
 export default class ProfileScreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     if (props.navigation.getParam("profile")) {
-      this.state = { data: props.navigation.getParam("profile") };
+      this.state = { data: props.navigation.getParam("profile"), isMine: false };
     } else {
-      this.state = { data: props.data };
-      var that = this;
-      SharedPreferences.getItem("userID", function (value) {
-        console.log("the id ", value);
-        const config = {
-          url: URLS.USER_ID + value,
-          method: 'GET',
-        };
-        const request = CallAPI(config, respnse => that.onLoginSuccess(respnse), error => that.onLoginError(error));
-
-      });
+      this.state = { data: props.data, isMine: true };
+      this.refreshProfile()
     }
   }
 
+  refreshProfile() {
+    var that = this;
+    SharedPreferences.getItem("userID", function (value) {
+      console.log("the id ", value);
+      const config = {
+        url: URLS.USER_ID + value,
+        method: 'GET',
+      };
+      const request = CallAPI(config, respnse => that.onLoginSuccess(respnse), error => that.onLoginError(error));
+
+    });
+  }
+  _refresh() {
+    this.refreshProfile();
+  }
 
   onLoginSuccess(response) {
-    console.log("user Profile", response)
+    // console.log("user Profile", response)
     console.log(response.data[0])
     this.setState({
-      data: response.data[0][0]
+      data: response.data[0]
     })
+    console.log("refresh!!")
 
   }
 
@@ -68,52 +82,60 @@ export default class ProfileScreen extends React.Component<Props, State> {
     if (!this.state.data)
       return (
         <View>
+          
           <Text>Not found</Text>
         </View>
       );
     return (
-      <View style={{ padding: 8, flex: 1 }}>
-        <View style={{ alignSelf: "baseline", justifyContent: "flex-end" }}>
-          <Button
-            title="Edit"
-            onPress={() => this.props.navigation.navigate("EditProfileScreen")}
-          ></Button>
-        </View>
 
-        <Image
-          source={{
-            uri: this.state.data.image
-          }}
-          style={styles.ProfileImage}
-          resizeMode="cover"
-        ></Image>
-        <View>
-          <Text>{this.state.data.username}</Text>
-          <Text>{this.state.data.cohort}</Text>
-        </View>
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <SocialButton
-            image="facebook"
-            onPress={() => {
-              this.openFacebook(this.state.data.fb);
+      <View style={{ padding: 8, flex: 1 }}>
+        <PTRView onRefresh={this._refresh.bind(this)} >
+
+          <View style={{ alignSelf: "baseline", justifyContent: "flex-end" }}>
+            {this.state.isMine ?
+              <Button
+                title="Edit"
+                onPress={() => this.props.navigation.navigate("EditProfileScreen", { "data": this.state.data })}
+              ></Button> : null}
+          </View>
+
+          <Image
+            source={{
+              uri: this.state.data.image
             }}
-          />
-          <SocialButton
-            image="github"
-            onPress={() => Linking.openURL(this.state.data.gh)}
-          />
-          <SocialButton
-            image="twitter"
-            onPress={() => {
-              console.log("twitter");
-              Linking.openURL(this.state.data.tw);
-            }}
-          />
-          <SocialButton
-            image="linkedin"
-            onPress={() => Linking.openURL(this.state.data.li)}
-          />
-        </View>
+            style={styles.ProfileImage}
+            resizeMode="cover"
+          ></Image>
+
+          <View>
+            <Text>{this.state.data.username}</Text>
+            <Text>{this.state.data.cohort}</Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <SocialButton
+              image="facebook"
+              onPress={() => {
+                this.openFacebook(this.state.data.fb);
+              }}
+            />
+            <SocialButton
+              image="github"
+              onPress={() => Linking.openURL(this.state.data.gh)}
+            />
+            <SocialButton
+              image="twitter"
+              onPress={() => {
+                console.log("twitter");
+                Linking.openURL(this.state.data.tw);
+              }}
+            />
+            <SocialButton
+              image="linkedin"
+              onPress={() => Linking.openURL(this.state.data.li)}
+            />
+          </View>
+        </PTRView>
+
         <UserProfileTab data={this.state.data}></UserProfileTab>
       </View>
     );

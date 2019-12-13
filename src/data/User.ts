@@ -14,6 +14,6 @@ export default interface User {
   bio: string;
   empStat: string;
   skills: Skills[];
-  Portofolio: Portofolio[];
+  projects: Portofolio[];
   job: string;
 }

@@ -1,4 +1,4 @@
 export default interface Skills {
-  id: Number;
-  name: string;
+  skillId: Number;
+  skillName: string;
 }

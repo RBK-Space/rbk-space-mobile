@@ -45,16 +45,16 @@ export default class TabViewExample extends React.Component<Props> {
                                 horizontal={true}
                                 data={this.props.data.skills}
                                 renderItem={({ item }) => (
-                                    <TagComponent title={item.name}></TagComponent>
+                                    <TagComponent title={item.skillName}></TagComponent>
                                 )}
-                                keyExtractor={item => item.id + item.name}
+                                keyExtractor={item => item.skillId + item.skillName}
                             />
                         </View>
                     </ScrollView>
                 </View>
                 <View tabLabel="Portoflio">
                     <PortofolioScreen
-                        Portofolio={this.props.data.Portofolio}
+                        Portofolio={this.props.data.projects}
                     ></PortofolioScreen>
                 </View>
             </ScrollableTabView>

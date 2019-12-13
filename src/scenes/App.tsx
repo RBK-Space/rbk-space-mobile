@@ -6,6 +6,9 @@ import SimpleTabs from "./SimpleTabs";
 import EditProfileScreen from "./EditProfileScreen";
 import ProfileScreen from "./ProfileScreen";
 import WebLoginSceen from "./WebLoginSceen";
+import SharedPreferences from 'react-native-shared-preferences';
+
+
 
 const RootStack = createStackNavigator(
   {
@@ -31,6 +34,7 @@ const RootStack = createStackNavigator(
   {
     initialRouteName: "Login"
   }
+
 );
 
 const AppContainer = createAppContainer(RootStack);

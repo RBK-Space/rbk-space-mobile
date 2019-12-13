@@ -1,74 +1,64 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-
-    Text,
-    WebView
-} from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { thisTypeAnnotation } from "@babel/types";
+import HomeScreen from "./HomeScreen";
+import styles from "../styles/styles";
+import Login from "./Login";
+import SimpleTabsContainer from "./SimpleTabs";
+import AppContainer from "./App";
+import Test from "./WebLoginSceen"
 import CallAPI from '../net/ApiUtils.js'
-import SharedPreferences from 'react-native-shared-preferences';
 import URLS from '../net/ApiConst.js';
+import SharedPreferences from 'react-native-shared-preferences';
 
-interface Props {
-    style?: Object;
+export interface Props {
     navigation?: any;
 }
 
 interface State {
     isLoading: boolean;
-    redirectData?: any;
-    result?: any
+    isLogin: boolean;
 }
 
-export default class WebLoginSceen extends React.Component<Props, State>  {
-    render() {
-        return (
-            <WebView onNavigationStateChange={this._onLoad.bind(this)} style={styles.container} source={{ uri: URLS.AUTH_GIHUB }} />
-        );
+export default class SettingsScreen extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = { isLoading: false, isLogin: false };
     }
 
-    _onLoad(state) {
-        console.log(state.url);
-        if (state.url.indexOf(URLS.CLIENT_HOME_PAGE_URL) != -1) {
+    logout() {
+        const config = {
+            url: URLS.LOGOUT_URL,
+            method: 'GET',
+        };
 
+        const request = CallAPI(config, respnse => this.onLoginSuccess(respnse), error => this.onLoginError(error));
 
-            //let token = state.url.split("token=")[1];
-            //token = token.substring(0, token.length - 4);
-            // NavigationsActions.back();
-            // SessionActions.setSession(token);
-            const config = {
-                url: URLS.CLIENT_AUTH_SUCCESS_URL,
-                method: 'GET',
-            };
+        this.props.navigation.replace("Login")
+        SharedPreferences.setItem("userID", "");
 
-            const request = CallAPI(config, respnse => this.onLoginSuccess(respnse), error => this.onLoginError(error));
-        }
     }
-
 
     onLoginSuccess(response) {
-        console.log(">>>.", response.data.user[0])
-        // this.props.navigation.navigate("WebLoginSceen")
-        if (response && response.data && response.data.success) {
-            console.log("User id ", response.data.user[0].userId)
-            SharedPreferences.setItem("userID", response.data.user[0].userId + "");
-            SharedPreferences.setItem("user", JSON.stringify(response));
-            this.props.navigation.replace("SimpleTabs")
-
-        }
+        console.log(response)
     }
+
 
     onLoginError(error) {
         console.log('onError: ', error);
-        this.props.navigation.replace("Login")
 
     }
+    render() {
 
+        return (
+            <View style={styles.container}>
+                <Button
+                    onPress={this.logout.bind(this)}
+                    title="Logout"
+                    color="#841584"
+                    accessibilityLabel="Learn more about this purple button"
+                />
+            </View>
+        )
+    }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
-

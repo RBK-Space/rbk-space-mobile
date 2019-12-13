@@ -9,7 +9,7 @@ export interface Props {
   data: Portofolio;
 }
 
-interface State {}
+interface State { }
 
 export default class PortofolioItem extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -19,13 +19,13 @@ export default class PortofolioItem extends React.Component<Props, State> {
   render() {
     return (
       <View style={styles.post_container}>
-        <Text>{this.props.data.title}</Text>
-        <Text>{this.props.data.description}</Text>
+        <Text>{this.props.data.projectTitle}</Text>
+        <Text>{this.props.data.projectDesc}</Text>
         <Text
           style={{ color: "blue" }}
-          onPress={() => Linking.openURL(this.props.data.link)}
+          onPress={() => Linking.openURL(this.props.data.projectLink)}
         >
-          {this.props.data.link})
+          {this.props.data.projectLink})
         </Text>
       </View>
     );

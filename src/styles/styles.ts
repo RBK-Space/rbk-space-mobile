@@ -67,5 +67,10 @@ export default StyleSheet.create({
   defaultContainer: {
     flex: 1,
     padding: 10
+  },
+  defaultContainerEnd: {
+    flex: 1,
+    padding: 10,
+    justifyContent: "flex-end"
   }
 });

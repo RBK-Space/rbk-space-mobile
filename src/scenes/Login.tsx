@@ -14,6 +14,7 @@ interface State {
   isLoading: boolean;
   redirectData?: any;
   result?: any
+  isLogin: boolean
 }
 
 
@@ -21,10 +22,16 @@ export default class Login extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    SharedPreferences.getItem("userID", function (value) {
+      console.log("the id ", value);
+      if (value !== "")
+        props.navigation.replace("SimpleTabs")
+
+
+    });
   }
 
   signWithGithub() {
-
     // SharedPreferences.setItem("userID", "61");
     this.props.navigation.replace("WebLoginSceen")
   }

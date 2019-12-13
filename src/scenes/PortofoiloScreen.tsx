@@ -9,7 +9,7 @@ export interface Props {
   Portofolio: Portofolio[];
 }
 
-interface State {}
+interface State { }
 
 export default class PortofolioScreen extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -24,7 +24,7 @@ export default class PortofolioScreen extends React.Component<Props, State> {
           renderItem={({ item }) => (
             <PortofolioItem data={item}></PortofolioItem>
           )}
-          keyExtractor={item => item.id + ""}
+          keyExtractor={item => item.projectId + ""}
         />
       </View>
     );

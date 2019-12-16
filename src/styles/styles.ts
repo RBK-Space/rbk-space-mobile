@@ -102,5 +102,58 @@ export default StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover" // or 'stretch'
+  },
+  autocompleteContainer: {
+    flex: 1,
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    zIndex: 1
+  },
+  customTagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    backgroundColor: "#efeaea",
+    width: 300
+  },
+  customTag: {
+    backgroundColor: "#9d30a5",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 30,
+    marginLeft: 5,
+    marginTop: 5,
+    borderRadius: 30,
+    padding: 8
+  },
+
+  header: {
+    backgroundColor: "#9d30a5",
+    height: 80,
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 15,
+    marginBottom: 10
+  },
+
+  label1: {
+    color: "#614b63",
+    fontWeight: "bold",
+    marginBottom: 10
+  },
+  messageContainer: {
+    marginTop: 160,
+    height: 200,
+    alignSelf: "stretch",
+    marginLeft: 20,
+    marginRight: 20
+  },
+  message: {
+    backgroundColor: "#efeaea",
+    height: 200,
+    textAlignVertical: "top"
   }
 });

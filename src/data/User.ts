@@ -16,4 +16,6 @@ export default interface User {
   skills: Skills[];
   projects: Portofolio[];
   job: string;
+  cohortId: Number;
+  epmId: Number;
 }

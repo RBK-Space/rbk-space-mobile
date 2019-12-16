@@ -54,7 +54,7 @@ export default class ProfileScreen extends React.Component<Props, State> {
 
   onLoginSuccess(response) {
     // console.log("user Profile", response)
-    console.log(response.data[0])
+    console.log(response.data)
     this.setState({
       data: response.data[0]
     })
@@ -81,9 +81,14 @@ export default class ProfileScreen extends React.Component<Props, State> {
     // console.log("State>>>", this.state)
     if (!this.state.data)
       return (
-        <View>
-          
-          <Text>Not found</Text>
+        <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+          <PTRView style onRefresh={this._refresh.bind(this)} >
+
+            <Text style={{ fontSize: 15 }}>User Not Found </Text>
+            <Text style={{ fontSize: 10 ,padding:10}}>Swipe to refresh</Text>
+
+          </PTRView>
+
         </View>
       );
     return (

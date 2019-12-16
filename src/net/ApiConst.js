@@ -13,6 +13,11 @@ const LOGOUT_URL = `${BASE_URL}logout`;
 const EDIT_BASE_DATA_URL = `${BASE_URL}user/edit/basic`;
 const EDIT_CONTACT_URL = `${BASE_URL}user/edit/contact`;
 const EDIT_PORTFOILO_URL = `${BASE_URL}user/edit/portfolio`;
+const GET_SKILLS = `${BASE_URL}skills`;
+const GET_EMP = `${BASE_URL}empStatus`;
+const GET_COHORT = `${BASE_URL}cohorts`;
+const POST_Image = `${BASE_URL}upload/image`;
+const GET_Auth_GITHB = `${BASE_URL}auth/github/callback`;
 
 export default URLS = {
   POSTS_URL,
@@ -26,5 +31,10 @@ export default URLS = {
   LOGOUT_URL,
   EDIT_BASE_DATA_URL,
   EDIT_CONTACT_URL,
-  EDIT_PORTFOILO_URL
+  EDIT_PORTFOILO_URL,
+  GET_COHORT,
+  GET_EMP,
+  GET_SKILLS,
+  POST_Image,
+  GET_Auth_GITHB
 };

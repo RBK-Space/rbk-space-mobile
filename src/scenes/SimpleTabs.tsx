@@ -1,5 +1,8 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+
+import { Icon } from 'react-native-elements'
+
 import {
   FlatList,
   NavigationEventSubscription,
@@ -40,10 +43,15 @@ MyHomeScreen.navigationOptions = {
     focused: boolean;
     horizontal: boolean;
   }) => (
-      <Ionicons
-        name="ios-home"
-        size={horizontal ? 20 : 26}
-        style={{ color: tintColor }}
+      // <Ionicons
+      //   name="ios-home"
+      //   size={horizontal ? 20 : 26}
+      //   style={{ color: tintColor }}
+      // />
+      <Icon
+        name='home'
+        type='font-awesome'
+        color={tintColor}
       />
     ),
   tabBarLabel: "Home",
@@ -66,10 +74,11 @@ class MyPeopleScreen extends React.Component<MyPeopleScreenProps> {
       focused: boolean;
       horizontal: boolean;
     }) => (
-        <Ionicons
-          name="ios-people"
-          size={horizontal ? 20 : 26}
-          style={{ color: tintColor }}
+        // <Icon name="rocket" size={30} color="#900" />
+        <Icon
+          name='users'
+          type='font-awesome'
+          color={tintColor}
         />
       ),
     tabBarLabel: "People"
@@ -109,10 +118,10 @@ class MyProfileScreen extends React.Component<MyProfileScreenProps, MyProfileSta
       focused: boolean;
       horizontal: boolean;
     }) => (
-        <Ionicons
-          name="ios-people"
-          size={horizontal ? 20 : 26}
-          style={{ color: tintColor }}
+        <Icon
+          name='user-secret'
+          type='font-awesome'
+          color={tintColor}
         />
       ),
     tabBarLabel: "Profile"
@@ -176,7 +185,7 @@ const SimpleTabs = createBottomTabNavigator(
   {
     backBehavior: "history",
     tabBarOptions: {
-      activeTintColor: "#e91e63"
+      activeTintColor: "#B51983"
     }
   }
 );
@@ -186,26 +195,9 @@ interface SimpleTabsContainerProps {
 }
 
 interface State {
-  posts: Posts
 }
 class SimpleTabsContainer extends React.Component<SimpleTabsContainerProps, State> {
   static router = SimpleTabs.router;
-
-  // componentDidMount() {
-  //   const config = {
-  //     url: POSTS_URL,
-  //     method: 'GET',
-  //   };
-  //   const request = CallAPI(config, respnse => this.onLoginSuccess(respnse), error => this.onLoginError(error));
-  // }
-  // onLoginSuccess(response) {
-  //   console.log(response)
-
-  // }
-
-  // onLoginError(error) {
-  //   console.log('onError: ', error);
-  // }
 
   onAction = (a: NavigationEventPayload) => {
     console.log("TABS EVENT", a.type, a);

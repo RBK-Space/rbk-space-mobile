@@ -6,7 +6,9 @@ import {
     FlatList,
     TextInput,
     Button,
-    Alert
+    Alert,
+    Platform,
+    Text
 } from "react-native";
 import styles from "../styles/styles";
 import UserProfile from "../data/UserProfile";
@@ -20,10 +22,14 @@ import URLS from "../net/ApiConst";
 import SharedPreferences from 'react-native-shared-preferences';
 import DialogProgress from 'react-native-dialog-progress'
 import User from "../data/User";
+import { TagSelect } from 'react-native-tag-select';
+import { RNS3 } from 'react-native-s3-upload';
+import config from "../../config/config.json"
 
 export interface Props {
     style?: Object;
     data?: User;
+    constants?: any
 }
 const dialogOptions = {
     title: "Loading",
@@ -33,79 +39,87 @@ const dialogOptions = {
 
 //get data from Api
 interface State {
-    avatarSource: any;
-    cohort: any;
-    cohorts: string[];
-    firstName: string;
-    lastName: string;
-    bio: string;
-    employmentState: string[];
-    emolyment: string;
-    skills: Skills[];
-    tag: string;
-    refresh: boolean;
-    editData?: any;
+    imgUrl: string,
+    bio: string,
+    empStatus: Number,
+    userId: Number,
+    cohortId: Number,
+    fullName: string,
+    imageChanged: boolean;
 }
 
-export default class EditPtofileBasicInfoScreen extends React.Component<
-    Props,
-    State
-    > {
-    image: string;
+export default class EditPtofileBasicInfoScreen extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            editData: {},
-            tag: "",
-            firstName: this.props.data.username,
-            avatarSource: this.props.data.image,
-            cohort: this.props.data.cohort,
-            lastName: "",
+            imgUrl: this.props.data.image,
             bio: this.props.data.bio,
-            skills: this.props.data.skills,
-            refresh: true,
-            emolyment: this.props.data.empStat,
-            cohorts: [
-                "cohort-1",
-                "cohort-2",
-                "cohort-3",
-                "cohort-4",
-                "cohort-5",
-                "cohort-6",
-                "cohort-7",
-                "cohort-8"
-            ],
-            employmentState: ["employed", "not employed"]
+            empStatus: this.props.data.epmId,
+            userId: this.props.data.userId,
+            cohortId: this.props.data.cohortId,
+            fullName: this.props.data.fullName,
+            imageChanged: false
         };
-        this.image = "";
-
-        var that = this
-        SharedPreferences.getItem("userID", function (value) {
-            var data = that.state.editData;
-            data.userId = value;
-            that.setState({ editData: data });
-        });
-
 
     }
-    handleSaveClick() {
 
+    uploadImage() {
+        DialogProgress.show(dialogOptions)
+        const file = {
+            uri: this.state.imgUrl,
+            name: `rbk-space${new Date().getTime()}.jpg`,
+            type: "image/jpeg"
+        }
+
+        RNS3.put(file, config.Awsconfig).then(response => {
+            if (response.status !== 201) {
+                console.log(response);
+            } else {
+                console.log(response.body);
+                this.props.data.image = response.body.postResponse.location;
+                this.setState({ imgUrl: response.body.postResponse.location, imageChanged: false })
+                //after upload image on Aws push for the edit profile
+                this.editProfileApi()
+            }
+        });
+
+    }
+
+    editProfileApi() {
+        console.log(this.state.empStatus)
+        var editData = {
+            imgUrl: this.state.imgUrl,
+            bio: this.state.bio,
+            empStatus: this.state.empStatus,
+            userId: this.state.userId,
+            cohortId: this.state.cohortId,
+            fullName: this.state.fullName,
+        }
         const config = {
             url: URLS.EDIT_BASE_DATA_URL,
             method: "POST",
-            data: this.state.editData
+            data: editData
         };
         const request = CallAPI(
             config,
             respnse => this.onLoginSuccess(respnse),
             error => this.onLoginError(error)
         );
-        DialogProgress.show(dialogOptions)
-
     }
+
+    handleSaveClick() {
+        if (this.state.imageChanged)
+            this.uploadImage()
+        else {
+            DialogProgress.show(dialogOptions)
+            this.editProfileApi()
+
+        }
+    }
+
     onLoginSuccess(response) {
         console.log(">>>.", response);
-        Alert.alert("Success")
+        Alert.alert("Profile updated")
         DialogProgress.hide()
     }
 
@@ -115,17 +129,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
         DialogProgress.hide()
     }
 
-    handleEditComplete() {
-        console.log("done");
-        let tags = this.state.skills || [];
 
-        tags.push({ skillId: new Date().getDate(), skillName: this.state.tag });
-        this.setState({ skills: tags });
-        var data = this.state.editData;
-        data.skills = tags;
-        this.setState({ editData: data });
-        console.log(this.state);
-    }
 
     showImage() {
         ImagePicker.showImagePicker(options, response => {
@@ -139,12 +143,10 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                 console.log("User tapped custom button: ", response.customButton);
             } else {
                 const source = { uri: response.uri };
-                // this.image = source;
-                // You can also display the image using data:
-                // const source = { uri: "data:image/jpeg;base64," + response.data };
                 console.log(source);
                 this.setState({
-                    avatarSource: source.uri
+                    imgUrl: source.uri,
+                    imageChanged: true
                 });
             }
         });
@@ -152,11 +154,11 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
 
     render() {
         console.log("This is edit profile basic info");
-        let serviceItems = this.state.cohorts.map((s, i) => {
-            return <Picker.Item key={i} value={s} label={s} />;
+        let serviceItems = this.props.constants.cohorts.map((cohort, i) => {
+            return <Picker.Item key={cohort.cohortId} value={cohort.cohortId} label={cohort.cohortName} />;
         });
-        let employmentStates = this.state.employmentState.map((s, i) => {
-            return <Picker.Item key={i} value={s} label={s} />;
+        let employmentStates = this.props.constants.empstate.map((empState, i) => {
+            return <Picker.Item key={empState.empId} value={empState.empId} label={empState.empStatus} />;
         });
         return (
             <ScrollView>
@@ -171,7 +173,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                             console.log("Works!");
                         }}
                         source={{
-                            uri: this.state.avatarSource
+                            uri: this.state.imgUrl
                         }}
                         showEditButton
                     />
@@ -179,70 +181,47 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         placeholder="First Name"
                         errorStyle={{ color: "red" }}
                         errorMessage=""
-                        value={this.state.firstName}
-                        onChangeText={firstName => {
-                            this.setState({ firstName });
-                            var data = this.state.editData;
-                            data.firstName = firstName;
-                            this.setState({ editData: data });
+                        value={this.state.fullName}
+                        onChangeText={fullName => {
+                            this.setState({ fullName });
                         }}
                     />
-                    <Input
-                        placeholder="Last Name"
-                        errorStyle={{ color: "red" }}
-                        errorMessage=""
-                        value={this.state.lastName}
-                        onChangeText={lastName => {
-                            this.setState({ lastName });
-                            var data = this.state.editData;
-                            data.lastName = lastName;
-                            this.setState({ editData: data });
-                        }}
-                    />
+
                     <TextInput
                         multiline={true}
                         placeholder="Bio"
                         value={this.state.bio}
                         onChangeText={bio => {
                             this.setState({ bio });
-                            var data = this.state.editData;
-                            data.bio = bio;
-                            this.setState({ editData: data });
                         }}
                     />
-                    <View>
-                        <Picker
-                            mode="dropdown"
-                            selectedValue={this.state.cohort}
-                            style={{ height: 50, width: "50%" }}
-                            onValueChange={(itemValue, itemIndex) => {
-                                this.setState({ cohort: itemValue })
-                                var data = this.state.editData;
-                                data.cohort = itemValue;
-                                this.setState({ editData: data });
-                            }
-                            }
-                        >
-                            {serviceItems}
-                        </Picker>
-                    </View>
+                    {/* <View> */}
+                    <Picker
+                        mode="dropdown"
+                        selectedValue={this.state.cohortId}
+                        style={{ height: 50, width: "50%" }}
+                        onValueChange={(itemValue, itemIndex) => {
+                            console.log(itemValue)
+                            this.setState({ cohortId: itemValue })
+
+                        }
+                        }
+                    >
+                        {serviceItems}
+                    </Picker>
 
                     <Picker
                         mode="dropdown"
-                        selectedValue={this.state.emolyment}
+                        selectedValue={this.state.empStatus}
                         style={{ height: 50, width: "50%" }}
                         onValueChange={(itemValue, itemIndex) => {
-
-
-                            this.setState({ emolyment: itemValue })
-                            var data = this.state.editData;
-                            data.empStat = itemValue;
-                            this.setState({ editData: data });
+                            this.setState({ empStatus: itemValue })
                         }}
                     >
                         {employmentStates}
                     </Picker>
-                    <View>
+                    <Text>Select your skills </Text>
+                    {/* <View>s
                         <Input
                             onSubmitEditing={this.handleEditComplete.bind(this)}
                             placeholder="Add skills"
@@ -250,8 +229,8 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                             errorMessage=""
                             onChangeText={text => this.setState({ tag: text })}
                         />
-                    </View>
-                    <FlatList
+                    </View> */}
+                    {/* <FlatList
                         horizontal={true}
                         data={this.state.skills}
                         renderItem={({ item }) => (
@@ -259,7 +238,9 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         )}
                         extraData={this.state}
                         keyExtractor={item => item.skillId + item.skillName}
-                    />
+                    /> */}
+
+
 
                     <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button>
 
@@ -271,7 +252,6 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
 
 const options = {
     title: "Select Avatar",
-    //   customButtons: [{ name: "fb", title: "Choose Photo from Facebook" }],
     storageOptions: {
         skipBackup: true,
         path: "images",

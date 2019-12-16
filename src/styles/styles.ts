@@ -72,5 +72,35 @@ export default StyleSheet.create({
     flex: 1,
     padding: 10,
     justifyContent: "flex-end"
+  },
+  buttonContainer: {
+    padding: 15
+  },
+  buttonInner: {
+    marginBottom: 15
+  },
+  labelText: {
+    color: "#333",
+    fontSize: 15,
+    fontWeight: "500",
+    marginBottom: 15
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: "#333",
+    backgroundColor: "#FFF"
+  },
+  label: {
+    color: "#333"
+  },
+  itemSelected: {
+    backgroundColor: "#333"
+  },
+  labelSelected: {
+    color: "#FFF"
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover" // or 'stretch'
   }
 });

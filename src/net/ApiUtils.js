@@ -1,6 +1,10 @@
 import axios from "axios";
-
+const headers = {
+  "Content-Type": "multipart/form-data"
+  // 'Authorization': 'Bearer ' + myAuthToken // if using JWT
+};
 export default CallAPI = (requireConfig = {}, onSuccess, onError) => {
+  console.log(requireConfig.data);
   const config = {
     ...requireConfig,
     url: encodeURI(requireConfig.url),

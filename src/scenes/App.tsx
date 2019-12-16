@@ -6,8 +6,8 @@ import SimpleTabs from "./SimpleTabs";
 import EditProfileScreen from "./EditProfileScreen";
 import ProfileScreen from "./ProfileScreen";
 import WebLoginSceen from "./WebLoginSceen";
-import SharedPreferences from 'react-native-shared-preferences';
-
+import Splash from "./Splash";
+import { View } from "react-native";
 
 
 const RootStack = createStackNavigator(
@@ -16,7 +16,11 @@ const RootStack = createStackNavigator(
       screen: HomePage
     },
     Login: {
-      screen: Login
+      screen: Login,
+      navigationOptions: {
+        header: null,
+      }
+
     },
     SimpleTabs: {
       screen: SimpleTabs
@@ -28,11 +32,19 @@ const RootStack = createStackNavigator(
       screen: ProfileScreen
     },
     WebLoginSceen: {
-      screen: WebLoginSceen
+      screen: WebLoginSceen,
+      navigationOptions: {
+        header: null,
+      }
+    }, Splash: {
+      screen: Splash,
+      navigationOptions: {
+        header: null,
+      }
     }
   },
   {
-    initialRouteName: "Login"
+    initialRouteName: "Splash"
   }
 
 );

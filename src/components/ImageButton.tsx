@@ -10,6 +10,7 @@ export interface Props {
   image: string;
   text?: string;
   direction?: Number;
+
   onPress: () => void;
 }
 
@@ -29,10 +30,10 @@ export default class ImageButton extends Component<Props> {
             style={{
               paddingStart: 8,
               paddingEnd: 8,
+              backgroundColor: "#FFFFFF",
               paddingTop: 4,
               paddingBottom: 4,
-              borderRadius: 4,
-              borderWidth: 0.5,
+              borderRadius: 8,
               alignContent: "center",
               alignItems: "center",
               justifyContent: "center",
@@ -43,7 +44,10 @@ export default class ImageButton extends Component<Props> {
               style={styles.ImageIconStyle}
               source={images[this.props.image].uri}
             ></Image>
-            <Text>{this.props.text}</Text>
+            <Text style={{
+              fontFamily: 'Cochin',
+              fontSize: 15,
+            }}>{this.props.text}</Text>
           </View>
         </TouchableOpacity>
       </View>

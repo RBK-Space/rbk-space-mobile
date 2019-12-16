@@ -7,8 +7,11 @@ import Login from "./Login";
 import SimpleTabsContainer from "./SimpleTabs";
 import AppContainer from "./App";
 import Test from "./WebLoginSceen"
+import SharedPreferences from 'react-native-shared-preferences';
+
 export interface Props {
   name: string;
+  navigation: any
 }
 
 interface State {
@@ -20,34 +23,36 @@ export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { isLoading: false, isLogin: false };
+    
   }
   componentDidMount() {
+    console.log("Helloo")
+    var that = this;
     setTimeout(() => {
-      this.setState({ isLoading: true });
+      that.setState({ isLoading: true });
+
+      SharedPreferences.getItem("userID", function (value) {
+        console.log("the id ", value);
+        if (value !== "")
+          that.props.navigation.replace("SimpleTabs")
+        else {
+          that.props.navigation.replace("Login")
+
+        }
+
+      });
     }, 2000);
   }
 
   render() {
-    if (!this.state.isLoading) {
-      return (
-        <View style={styles.container}>
-          <Image
-            source={require("../assets/images/ic_logo_white.png")}
-            style={{ width: "60%", resizeMode: "contain" }}
-          ></Image>
-        </View>
-      );
-    } else if (this.state.isLogin) {
-      // return <HomeScreen ></HomeScreen>;
-    } else {
-      return (
-        <View style={styles.loginContainer}>
-          {/* <Login name="login"></Login> */}
-          <AppContainer></AppContainer>
-          {/* <Test></Test> */}
-          
-        </View>
-      );
-    }
+    return (
+      <Image
+        source={require("../assets/images/bg_splash.png")}
+      // style={{ width: "60%", resizeMode: "contain" }}
+      ></Image>
+
+    );
+
+
   }
 }

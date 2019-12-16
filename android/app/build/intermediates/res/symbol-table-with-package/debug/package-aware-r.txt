@@ -717,6 +717,8 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable redbox_top_border_background
+drawable src_assets_images_bg_login
+drawable src_assets_images_bg_splash
 drawable src_assets_images_ic_facebook
 drawable src_assets_images_ic_github_logo
 drawable src_assets_images_ic_linkedin

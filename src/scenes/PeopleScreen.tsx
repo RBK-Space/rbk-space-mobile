@@ -8,6 +8,13 @@ import { SearchBar } from "react-native-elements";
 import profile from "../data/profile.js";
 import CallAPI from '../net/ApiUtils.js'
 import URLS from '../net/ApiConst';
+import PTRView from 'react-native-pull-to-refresh';
+import {
+  CirclesLoader,
+  ColorDotsLoader,
+  TextLoader,
+  NineCubesLoader
+} from "react-native-indicator";
 export interface Props {
   users: userItem[];
   navigation?: any;
@@ -21,12 +28,15 @@ interface State {
 export default class HomeScreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { search: "", users: this.props.users };
+    this.state = { search: "", users: null };
   }
   updateSearch = search => {
     this.setState({ search });
     this.getUsers(search)
   };
+  _refresh() {
+    this.getUsers();
+  }
 
   componentDidMount() {
     this.getUsers()
@@ -60,23 +70,34 @@ export default class HomeScreen extends React.Component<Props, State> {
 
     console.log(">>>>>", this.state.users);
     return (
-      <View style={styles.defaultContainer}>
-        <SearchBar
-          round
-          lightTheme
-          placeholder="Type Here..."
-          onChangeText={this.updateSearch.bind(this)}
-          value={search}
-        />
-        <FlatList
-          data={this.state.users}
-          renderItem={({ item }) => (
+      <PTRView onRefresh={this._refresh.bind(this)} >
+        {this.state.users ?
+          <View style={styles.defaultContainer}>
+            <SearchBar
+              round
+              lightTheme
+              containerStyle={{ backgroundColor: "#fff", borderWidth: 0, shadowColor: "white" }}
+              inputContainerStyle={{ backgroundColor: "#E7E4E7" }}
+              placeholder="Type Here..."
 
-            <UserItem data={item} navigation={this.props.navigation} ></UserItem>
-          )}
-          keyExtractor={item => item.userId + ""}
-        />
-      </View>
+              onChangeText={this.updateSearch.bind(this)}
+              value={search}
+            />
+            <FlatList
+              data={this.state.users}
+              renderItem={({ item }) => (
+
+                <UserItem data={item} navigation={this.props.navigation} ></UserItem>
+              )}
+              keyExtractor={item => item.userId + ""}
+            />
+          </View> :
+          <View style={{ marginTop: "65%", marginStart: "45%" }}>
+            <CirclesLoader color={"#7600AA"} />
+            <TextLoader text="loading" />
+          </View>}
+      </PTRView>
+
     );
   }
 }

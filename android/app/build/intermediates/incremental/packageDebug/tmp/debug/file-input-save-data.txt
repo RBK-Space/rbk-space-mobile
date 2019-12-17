@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Dec 15 20:20:27 EET 2019
+#Mon Dec 16 20:19:39 EET 2019
 23.set=NATIVE_RESOURCE
 31.set=NATIVE_RESOURCE
 33.base=/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/transforms/mergeJniLibs/debug/0

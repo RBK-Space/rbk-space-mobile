@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, Image, TouchableHighlight } from "react-n
 import TimeAgo from "react-native-timeago";
 import User from "../data/User";
 import { Avatar } from "react-native-elements";
+import { Card } from 'react-native-elements'
 
 export interface Props {
   data: User;
@@ -22,34 +23,31 @@ export default class Login extends React.Component<Props, State> {
 
   render() {
     return (
-      <TouchableHighlight
-        underlayColor="#DCDDE7"
-        onPress={() => this.props.navigation.navigate("ProfileScreen", { "profile": this.props.data })}
-      >
-        <View style={styles.post_container}>
-          <View style={styles.post_user}>
-            {/* <Image
-            source={{
-              uri: this.props.data.image
-            }}
-            style={styles.userImage}
-            resizeMode="cover"
-          ></Image> */}
-            <Avatar
-              rounded
-              title={this.props.data.username.substring(0, 2)}
-              size="medium"
-              source={{
-                uri: this.props.data.image
-              }}
-            />
-            <View style={{ justifyContent: "center", padding: 8 }}>
-              <Text>{this.props.data.username}</Text>
-              <Text>{this.props.data.cohort}</Text>
+      <Card containerStyle={{ borderRadius: 8, shadowColor: "#E7E4E7", padding: 0 }}>
+
+        <TouchableHighlight
+          underlayColor="#DCDDE7"
+          onPress={() => this.props.navigation.navigate("ProfileScreen", { "profile": this.props.data })}
+        >
+          <View style={styles.post_container}>
+            <View style={styles.post_user}>
+
+              <Avatar
+                rounded
+                title={this.props.data.username.substring(0, 2)}
+                size="medium"
+                source={{
+                  uri: this.props.data.image
+                }}
+              />
+              <View style={{ justifyContent: "center", padding: 8 }}>
+                <Text style={{ fontWeight: "bold" }}>{this.props.data.username}</Text>
+                <Text>{this.props.data.cohort}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
+      </Card>
 
     );
   }

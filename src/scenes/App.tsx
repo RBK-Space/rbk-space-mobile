@@ -7,7 +7,7 @@ import EditProfileScreen from "./EditProfileScreen";
 import ProfileScreen from "./ProfileScreen";
 import WebLoginSceen from "./WebLoginSceen";
 import Splash from "./Splash";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 
 
 const RootStack = createStackNavigator(
@@ -23,7 +23,8 @@ const RootStack = createStackNavigator(
 
     },
     SimpleTabs: {
-      screen: SimpleTabs
+      screen: SimpleTabs,
+
     },
     EditProfileScreen: {
       screen: EditProfileScreen

@@ -11,6 +11,7 @@ import SharedPreferences from 'react-native-shared-preferences';
 import URLS from '../net/ApiConst';
 import User from "../data/User";
 import PTRView from 'react-native-pull-to-refresh';
+import { Avatar, Icon } from "react-native-elements";
 
 export interface Props {
   data: UserItem;
@@ -83,10 +84,10 @@ export default class ProfileScreen extends React.Component<Props, State> {
       return (
         <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
           <PTRView style onRefresh={this._refresh.bind(this)} >
-
-            <Text style={{ fontSize: 15 }}>User Not Found </Text>
-            <Text style={{ fontSize: 10 ,padding:10}}>Swipe to refresh</Text>
-
+            <View >
+              <Text style={{ fontSize: 15 }}>User Not Found </Text>
+              <Text style={{ fontSize: 10, padding: 10 }}>Swipe to refresh</Text>
+            </View>
           </PTRView>
 
         </View>
@@ -95,31 +96,38 @@ export default class ProfileScreen extends React.Component<Props, State> {
 
       <View style={{ padding: 8, flex: 1 }}>
         <PTRView onRefresh={this._refresh.bind(this)} >
-
-          <View style={{ alignSelf: "baseline", justifyContent: "flex-end" }}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
             {this.state.isMine ?
-              <Button
-                title="Edit"
+              // <Button
+              //   title="Edit"
+              //   onPress={() => this.props.navigation.navigate("EditProfileScreen", { "data": this.state.data })}
+              // ></Button> 
+              <Icon
+                raised
+                name='user-edit'
+                type='font-awesome'
+                color='#f50'
                 onPress={() => this.props.navigation.navigate("EditProfileScreen", { "data": this.state.data })}
-              ></Button> : null}
+              />
+              : null}
           </View>
-
-          <Image
+          <Avatar
+            rounded
+            title={this.state.data.fullName ? this.state.data.fullName.substring(0, 2) : "A"}
+            size="xlarge"
             source={{
               uri: this.state.data.image
             }}
-            style={styles.ProfileImage}
-            resizeMode="cover"
-          ></Image>
-
+          />
           <View>
-            <Text>{this.state.data.username}</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 14 }}>{this.state.data.fullName}</Text>
             <Text>{this.state.data.cohort}</Text>
           </View>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <SocialButton
               image="facebook"
               onPress={() => {
+
                 this.openFacebook(this.state.data.fb);
               }}
             />

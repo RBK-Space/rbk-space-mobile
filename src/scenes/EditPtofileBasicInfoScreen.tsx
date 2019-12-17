@@ -68,7 +68,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             imageChanged: false,
             suggestions: this.props.constants.skills,
             tagsSelected: this.props.data.skills
-            
+
         };
     }
 
@@ -97,14 +97,14 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
     }
 
     editProfileApi() {
-        console.log(this.state.empStatus);
+        this.editSkillsApi()
         var editData = {
             imgUrl: this.state.imgUrl,
             bio: this.state.bio,
             empStatus: this.state.empStatus,
             userId: this.state.userId,
             cohortId: this.state.cohortId,
-            fullName: this.state.fullName
+            fullName: this.state.fullName,
         };
         const config = {
             url: URLS.EDIT_BASE_DATA_URL,
@@ -116,6 +116,26 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             respnse => this.onLoginSuccess(respnse),
             error => this.onLoginError(error)
         );
+    }
+
+    editSkillsApi() {
+        var skillId = []
+        console.log(this.state.empStatus);
+        this.state.tagsSelected.map((skill, i) => {
+            skillId.push(skill.skillId)
+        });
+
+        const config = {
+            url: URLS.POST_EDIT_PROFILE,
+            method: "POST",
+            data: { userId: this.state.userId, skillId }
+        };
+        const request = CallAPI(
+            config,
+            respnse => this.onSkillsSuccess(respnse),
+            error => this.onSkillsError(error)
+        );
+
     }
 
     handleSaveClick() {
@@ -133,6 +153,19 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
     }
 
     onLoginError(error) {
+        console.log("onError: ", error);
+        Alert.alert("Error");
+        DialogProgress.hide();
+    }
+
+
+    onSkillsSuccess(response) {
+        console.log(">>>.", response);
+        Alert.alert("Skills updated successfully");
+        DialogProgress.hide();
+    }
+
+    onSkillsError(error) {
         console.log("onError: ", error);
         Alert.alert("Error");
         DialogProgress.hide();
@@ -190,8 +223,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         <TouchableHighlight
                             key={t.skillId}
                             style={styles.customTag}
-                            onPress={() => this.handleDelete(i)}
-                        >
+                            onPress={() => this.handleDelete(i)}>
                             <Text style={{ color: "white" }}>
                                 {t.skillId}) {t.skillName}
                             </Text>
@@ -246,7 +278,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                 <View style={styles.defaultContainer}>
                     <Avatar
                         rounded
-                        title="AM"
+                        title={this.props.data.fullName ? this.props.data.fullName.substring(0, 2) : "A"}
                         size="xlarge"
                         onPress={() => {
                             this.showImage();
@@ -308,7 +340,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                             handleAddition={this.handleAddition}
                             handleDelete={this.handleDelete}
                             //optional
-                            placeholder="Add a contact.."
+                            placeholder="Add a skill.."
                             filterData={this.customFilterData}
                             renderSuggestion={this.customRenderSuggestion}
                             renderTags={this.customRenderTags}

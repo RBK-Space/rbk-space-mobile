@@ -18,6 +18,7 @@ const GET_EMP = `${BASE_URL}empStatus`;
 const GET_COHORT = `${BASE_URL}cohorts`;
 const POST_Image = `${BASE_URL}upload/image`;
 const GET_Auth_GITHB = `${BASE_URL}auth/github/callback`;
+const POST_EDIT_PROFILE = `${BASE_URL}user/edit/skill`;
 
 export default URLS = {
   POSTS_URL,
@@ -36,5 +37,6 @@ export default URLS = {
   GET_EMP,
   GET_SKILLS,
   POST_Image,
-  GET_Auth_GITHB
+  GET_Auth_GITHB,
+  POST_EDIT_PROFILE
 };

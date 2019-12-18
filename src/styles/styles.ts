@@ -106,7 +106,6 @@ export default StyleSheet.create({
   autocompleteContainer: {
     flex: 1,
     left: 0,
-    position: "absolute",
     right: 0,
     top: 0,
     zIndex: 1
@@ -161,7 +160,8 @@ export default StyleSheet.create({
     padding: 16,
     width: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    height: "100%"
   },
   flatlist: {
     flex: 1
@@ -186,12 +186,9 @@ export default StyleSheet.create({
     width: "100%",
     borderColor: "gray",
     borderRadius: 4,
-    margin: 8,
     borderWidth: 0.5,
-    marginEnd: 16,
+    margin: 8,
     fontSize: 15,
-    textAlignVertical: "top",
-    alignSelf: "baseline",
-    justifyContent: "flex-start"
+    textAlignVertical: "top"
   }
 });

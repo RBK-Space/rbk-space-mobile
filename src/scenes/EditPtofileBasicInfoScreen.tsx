@@ -18,6 +18,7 @@ import User from "../data/User";
 import { RNS3 } from "react-native-s3-upload";
 import config from "../../config/config.json";
 import AutoTags from "react-native-tag-autocomplete";
+import { margin } from "../styles/mixins";
 
 export interface Props {
     style?: Object;
@@ -261,23 +262,28 @@ export default class EditPtofileBasicInfoScreen extends React.Component<Props, S
                 />
             );
         });
+        // paddingEnd: 32, paddingStart: 8, marginTop: 16
         return (
             <ScrollView style={{ width: "100%" }}>
-                <View style={styles.loadingContainer}>
-                    <Avatar
-                        rounded
-                        title={this.props.data.fullName ? this.props.data.fullName.substring(0, 2) : "A"}
-                        size="xlarge"
-                        onPress={() => {
-                            this.showImage();
-                            console.log("Works!");
-                        }}
-                        source={{
-                            uri: this.state.imgUrl
-                        }}
-                        showEditButton
-                    />
-                    <View style={{ width: "100%", paddingEnd: 32, paddingStart: 8 }}>
+                <View >
+                    <View style={{ paddingTop: 32, justifyContent: "center", alignItems: "center" }}>
+                        <Avatar
+                            rounded
+
+                            title={this.props.data.fullName ? this.props.data.fullName.substring(0, 2) : "A"}
+                            size="xlarge"
+                            onPress={() => {
+                                this.showImage();
+                                console.log("Works!");
+                            }}
+                            source={{
+                                uri: this.state.imgUrl
+                            }}
+                            showEditButton
+                        />
+                    </View>
+
+                    <View style={{ width: "95%", paddingEnd: 8, paddingStart: 8, marginTop: 16 }}>
                         <TextInput
                             style={styles.inputtext}
                             placeholder="First Name"
@@ -297,36 +303,38 @@ export default class EditPtofileBasicInfoScreen extends React.Component<Props, S
                             }}
                         />
                     </View>
+                    <View style={{ flex: 1, padding: 8 }}>
+                        <Text > what's your cohort?</Text>
+                        <Picker
+                            mode="dropdown"
+                            selectedValue={this.state.cohortId}
+                            style={{ height: 50 }}
+                            onValueChange={(itemValue, itemIndex) => {
+                                console.log(itemValue);
+                                this.setState({ cohortId: itemValue });
+                            }} >
+                            {serviceItems}
+                        </Picker>
+                    </View>
+                    <View style={{ flex: 1, padding: 8 }}>
+                        <Text> what's your employment state?</Text>
+                        <Picker
+                            mode="dropdown"
+                            selectedValue={this.state.empStatus}
+                            style={{ height: 50 }}
+                            onValueChange={(itemValue, itemIndex) => {
+                                this.setState({ empStatus: itemValue });
+                            }}>
+                            {employmentStates}
+                        </Picker>
+                    </View>
 
-                    {/* <View> */}
-                    <View></View>
-                    <Picker
-                        mode="dropdown"
-                        selectedValue={this.state.cohortId}
-                        style={{ height: 50, width: "50%" }}
-                        onValueChange={(itemValue, itemIndex) => {
-                            console.log(itemValue);
-                            this.setState({ cohortId: itemValue });
-                        }}
-                    >
-                        {serviceItems}
-                    </Picker>
+                    <Text style={{ marginBottom: 8, marginStart: 16 }}>Select your skills </Text>
 
-                    <Picker
-                        mode="dropdown"
-                        selectedValue={this.state.empStatus}
-                        style={{ height: 50, width: "50%" }}
-                        onValueChange={(itemValue, itemIndex) => {
-                            this.setState({ empStatus: itemValue });
-                        }}
-                    >
-                        {employmentStates}
-                    </Picker>
-                    <Text>Select your skills </Text>
-
-                    <View >
+                    <View style={{ flex: 1, margin: 16, width: "100%" }}>
                         <AutoTags
                             //required
+                            width={"100%"}
                             suggestions={this.state.suggestions}
                             tagsSelected={this.state.tagsSelected}
                             handleAddition={this.handleAddition}
@@ -344,10 +352,9 @@ export default class EditPtofileBasicInfoScreen extends React.Component<Props, S
                         title="  Save  "
                         buttonStyle={{ backgroundColor: "#B51983", marginTop: 8 }}
                         onPress={() => this.handleSaveClick()}
-                        style={{ width: "100", margin: 16 }}
                     />
                 </View>
-            </ScrollView>
+            </ScrollView >
         );
     }
 }

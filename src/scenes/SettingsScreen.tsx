@@ -32,19 +32,19 @@ export default class SettingsScreen extends React.Component<Props, State> {
             method: 'GET',
         };
 
-        const request = CallAPI(config, respnse => this.onLoginSuccess(respnse), error => this.onLoginError(error));
+        const request = CallAPI(config, respnse => this.onlogoutSuccess(respnse), error => this.onlogoutError(error));
 
         this.props.navigation.replace("Login")
         SharedPreferences.setItem("userID", "");
 
     }
 
-    onLoginSuccess(response) {
+    onlogoutSuccess(response) {
         console.log(response)
     }
 
 
-    onLoginError(error) {
+    onlogoutError(error) {
         console.log('onError: ', error);
 
     }

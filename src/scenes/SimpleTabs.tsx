@@ -177,10 +177,10 @@ const SimpleTabs = createBottomTabNavigator(
       path: "cart",
       screen: MyPeopleScreen
     },
-    Settings: {
-      path: "settings",
-      screen: MySettingsScreen
-    }
+    // Settings: {
+    //   path: "settings",
+    //   screen: MySettingsScreen
+    // }
   },
   {
     backBehavior: "history",

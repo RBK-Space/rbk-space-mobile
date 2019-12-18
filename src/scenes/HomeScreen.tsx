@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import styles from "../styles/styles";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Post from "../scencesComponents/Post";
 import PostItem from "../data/Posts";
 import AddPost from "../scencesComponents/AddPost";
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Header } from 'react-native-elements';
 import CallAPI from '../net/ApiUtils.js'
 import URLS from '../net/ApiConst';
 import DialogProgress from 'react-native-dialog-progress'
@@ -16,6 +16,7 @@ import {
   TextLoader,
   NineCubesLoader
 } from "react-native-indicator";
+import HeaderS from "../scencesComponents/Header";
 export interface Props {
   posts: PostItem[];
 }
@@ -72,6 +73,15 @@ export default class HomeScreen extends React.Component<Props, State> {
     console.log(this.props.posts);
     return (
       <PTRView onRefresh={this._refresh.bind(this)} >
+        <Header
+          statusBarProps={{ barStyle: 'light-content' }}
+          barStyle="light-content" // or directly
+          centerComponent={<Image source={require('../assets/images/rbk_logo.png')} style={{ width: 100, height: 50, resizeMode: "stretch" }} />}
+          containerStyle={{
+            backgroundColor: 'white',
+            justifyContent: 'space-around',
+          }}
+        />
         {this.state.posts ?
           <View>
             <ScrollView>

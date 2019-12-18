@@ -11,7 +11,7 @@ import SharedPreferences from "react-native-shared-preferences";
 import URLS from "../net/ApiConst";
 import User from "../data/User";
 import PTRView from "react-native-pull-to-refresh";
-import { Avatar, Icon } from "react-native-elements";
+import { Avatar, Icon, Header } from "react-native-elements";
 import { Dialog } from "react-native-paper";
 
 export interface Props {
@@ -90,6 +90,30 @@ export default class ProfileScreen extends React.Component<Props, State> {
       })
       .catch(err => console.error("An error occurred", err));
   }
+
+
+  logout() {
+    const config = {
+      url: URLS.LOGOUT_URL,
+      method: 'GET',
+    };
+
+    const request = CallAPI(config, respnse => this.onlogoutSuccess(respnse), error => this.onlogoutError(error));
+
+    this.props.navigation.replace("Login")
+    SharedPreferences.setItem("userID", "");
+
+  }
+
+  onlogoutSuccess(response) {
+    console.log(response)
+  }
+
+
+  onlogoutError(error) {
+    console.log('onError: ', error);
+
+  }
   render() {
     // console.log("State>>>", this.state)
     if (!this.state.data)
@@ -111,8 +135,23 @@ export default class ProfileScreen extends React.Component<Props, State> {
       <View style={{ flex: 1 }}>
         <PTRView
           onRefresh={this._refresh.bind(this)}
-          style={{ backgroundColor: "#F2F2F2" }}
-        >
+          style={{ backgroundColor: "#F2F2F2" }}>
+          <Header
+            statusBarProps={{ barStyle: 'light-content' }}
+            barStyle="light-content" // or directly
+            centerComponent={<Image source={require('../assets/images/rbk_logo.png')} style={{ width: 100, height: 50, resizeMode: "stretch" }} />}
+            rightComponent={<Icon
+              name='sign-out'
+              type='font-awesome'
+              color={"#B41D91"}
+              onPress={this.logout.bind(this)}
+
+            />}
+            containerStyle={{
+              backgroundColor: 'white',
+              justifyContent: 'space-around',
+            }}
+          />
           <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
             {this.state.isMine ? (
               <Icon

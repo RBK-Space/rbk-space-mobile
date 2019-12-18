@@ -24,7 +24,9 @@ const RootStack = createStackNavigator(
     },
     SimpleTabs: {
       screen: SimpleTabs,
-
+      navigationOptions: {
+        header: null,
+      }
     },
     EditProfileScreen: {
       screen: EditProfileScreen

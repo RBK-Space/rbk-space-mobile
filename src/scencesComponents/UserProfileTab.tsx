@@ -5,7 +5,8 @@ import UserItem from "../data/User";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import TagComponent from "../components/TagComponent";
 import PortofolioScreen from "../scenes/PortofoiloScreen";
-
+import styles from "../styles/styles";
+import TagsList from "./TagsList";
 export interface Props {
     data: UserItem;
 }
@@ -16,39 +17,41 @@ export default class TabViewExample extends React.Component<Props> {
     }
     render() {
         return (
-            <ScrollableTabView style={{ flex: 10 }}>
+            <ScrollableTabView
+                style={{ flex: 10 }}
+                tabBarActiveTextColor="#B51983"
+                tabBarUnderlineStyle={{
+                    backgroundColor: "#B51983"
+                }}
+            >
                 <View tabLabel="General">
                     <ScrollView>
-                        <View>
-                            <Text>
-                                {`Hello!My name is ${this.props.data.username} from ${this.props.data.cohort} I'm a ${this.props.data.empStat}
-                `}
-                            </Text>
+                        <View
+                            style={{
+                                alignContent: "center",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Text style={styles.bio_text}>
+                                {this.props.data.cohort
+                                    ? `Hello!My name is ${this.props.data.username} from ${this.props.data.cohort} I'm  ${this.props.data.empStat}`
+                                    : `Hello!My name is ${this.props.data.username}`}
+                                }
+              </Text>
 
-                            <Text style={{ paddingTop: 20 }}>
-                                {/* {`Employment Status :${
-                                    this.props.data.empStat ? "employed" : "not yet"
-                                    } `}  */}
-                                {`Employment Status :${
-                                    this.props.data.empStat
-                                    } `}
-                            </Text>
+                            <TagsList data={this.props.data.skills}></TagsList>
                         </View>
                     </ScrollView>
                 </View>
                 <View tabLabel="Bio">
                     <ScrollView>
-                        <View>
-                            <Text>{this.props.data.bio}</Text>
-                            <FlatList
+                        <View
+                            style={{
+                                alignContent: "center",
+                                justifyContent: "center"
+                            }} >
 
-                                horizontal={true}
-                                data={this.props.data.skills}
-                                renderItem={({ item }) => (
-                                    <TagComponent title={item.skillName}></TagComponent>
-                                )}
-                                keyExtractor={item => item.skillId + item.skillName}
-                            />
+                            <Text style={styles.bio_text}>{this.props.data.bio}</Text>
                         </View>
                     </ScrollView>
                 </View>
@@ -60,4 +63,15 @@ export default class TabViewExample extends React.Component<Props> {
             </ScrollableTabView>
         );
     }
+}
+
+{
+    /* <Text style={{ paddingTop: 20 }}>
+       {`Employment Status :${
+          this.props.data.empStat ? "employed" : "not yet"
+          } `}  
+      {`Employment Status :${
+          this.props.data.empStat
+          } `}
+      </Text> */
 }

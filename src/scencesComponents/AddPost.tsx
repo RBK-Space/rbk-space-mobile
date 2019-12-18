@@ -92,7 +92,6 @@ export default class AddPost extends React.Component<Props, State> {
           onChangeText={text => this.onChangeText(text)}
         />
         <Button
-
           icon={<Icon name="paper-plane" size={15} color="white" />}
           title="  Post  "
           buttonStyle={{ backgroundColor: "#B51983", marginTop: 8 }}

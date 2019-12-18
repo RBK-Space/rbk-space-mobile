@@ -4,7 +4,7 @@ const colors = {
   charcoal: "#474747",
   gray: "#7D7D7D",
   lightishgray: "#9D9D9D",
-  lightgray: "#D6D6D6",
+  lightgray: "#EFECEF",
   smoke: "#EEEEEE",
   white: "#FFFFFF",
   ypsDark: "#47546E",

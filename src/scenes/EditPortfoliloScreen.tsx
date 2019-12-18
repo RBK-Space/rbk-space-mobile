@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Alert, Text, ScrollView } from "react-native";
+import { View, Alert, Text, ScrollView } from "react-native";
 
 import { TextInput } from "react-native-paper";
 import styles from "../styles/styles";
@@ -8,13 +8,11 @@ import CallAPI from "../net/ApiUtils.js";
 import URLS from "../net/ApiConst";
 import SharedPreferences from 'react-native-shared-preferences';
 import DialogProgress from 'react-native-dialog-progress'
+import { Button } from "react-native-elements";
 interface State {
     editData?: any;
 }
-// fb: string;
-// gh: string;
-// li: string;
-// tw: string;
+
 export interface Props { data?: User }
 export default class EditContactScreen extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -36,19 +34,24 @@ export default class EditContactScreen extends React.Component<Props, State> {
 
 
     handleSaveClick() {
-
-        const config = {
-            url: URLS.EDIT_PORTFOILO_URL,
-            method: "POST",
-            data: this.state.editData
-        };
-        const request = CallAPI(
-            config,
-            respnse => this.onLoginSuccess(respnse),
-            error => this.onLoginError(error)
-        );
-        DialogProgress.show(dialogOptions)
-
+        if (this.state.editData
+            && this.state.editData.title
+            && this.state.editData.description
+            && this.state.editData.link) {
+            const config = {
+                url: URLS.EDIT_PORTFOILO_URL,
+                method: "POST",
+                data: this.state.editData
+            };
+            const request = CallAPI(
+                config,
+                respnse => this.onLoginSuccess(respnse),
+                error => this.onLoginError(error)
+            );
+            DialogProgress.show(dialogOptions)
+        } else {
+            Alert.alert("please fill all fields!")
+        }
     }
     onLoginSuccess(response) {
         console.log(">>>.", response);
@@ -80,7 +83,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         mode="outlined"
                         label="description"
                         value={this.state.editData.description}
-
+                        numberOfLines={5}
                         onChangeText={description => {
                             var data = this.state.editData;
                             data.description = description;
@@ -98,7 +101,13 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         }}
                     />
                 </View>
-                <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button>
+                <Button
+                    title="  Save  "
+                    buttonStyle={{ backgroundColor: "#B51983", marginTop: 8 }}
+                    onPress={() => this.handleSaveClick()}
+                    style={{ width: "100" }}
+                />
+                {/* <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button> */}
             </ScrollView>
         );
     }

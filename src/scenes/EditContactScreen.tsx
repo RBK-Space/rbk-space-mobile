@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Alert, Text, ScrollView } from "react-native";
+import { View, Alert, Text, ScrollView } from "react-native";
 
 import { TextInput } from "react-native-paper";
 import styles from "../styles/styles";
@@ -8,6 +8,7 @@ import CallAPI from "../net/ApiUtils.js";
 import URLS from "../net/ApiConst";
 import SharedPreferences from 'react-native-shared-preferences';
 import DialogProgress from 'react-native-dialog-progress'
+import { Button } from "react-native-elements";
 interface State {
     editData?: any;
     facebook?: string;
@@ -49,19 +50,25 @@ export default class EditContactScreen extends React.Component<Props, State> {
 
 
     handleSaveClick() {
-
-        const config = {
-            url: URLS.EDIT_CONTACT_URL,
-            method: "POST",
-            data: this.state.editData
-        };
-        const request = CallAPI(
-            config,
-            respnse => this.onLoginSuccess(respnse),
-            error => this.onLoginError(error)
-        );
-        DialogProgress.show(dialogOptions)
-
+        if (this.state.editData
+            && this.state.editData.facebook
+            && this.state.editData.twitter
+            && this.state.editData.github
+            && this.state.editData.linkedin) {
+            const config = {
+                url: URLS.EDIT_CONTACT_URL,
+                method: "POST",
+                data: this.state.editData
+            };
+            const request = CallAPI(
+                config,
+                respnse => this.onLoginSuccess(respnse),
+                error => this.onLoginError(error)
+            );
+            DialogProgress.show(dialogOptions)
+        } else {
+            Alert.alert("please fill all fields!")
+        }
     }
     onLoginSuccess(response) {
         console.log(">>>.", response);
@@ -84,8 +91,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         label="Facebook"
                         value={this.state.facebook}
                         onChangeText={facebook => {
-                            if (facebook === "")
-                                return;
+
                             var data = this.state.editData;
                             data.facebook = facebook;
                             this.setState({ editData: data });
@@ -98,8 +104,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         value={this.state.twitter}
 
                         onChangeText={twitter => {
-                            if (twitter === "")
-                                return;
+
                             this.setState({ twitter })
                             var data = this.state.editData;
                             data.twitter = twitter;
@@ -111,8 +116,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         label="Github"
                         value={this.state.github}
                         onChangeText={github => {
-                            if (github === "")
-                                return;
+
                             var data = this.state.editData;
                             data.github = github;
                             this.setState({ editData: data });
@@ -125,8 +129,7 @@ export default class EditContactScreen extends React.Component<Props, State> {
                         label="Linkedin"
                         value={this.state.linkedin}
                         onChangeText={linkedin => {
-                            if (linkedin === "")
-                                return;
+
                             var data = this.state.editData;
                             data.linkedin = linkedin;
                             this.setState({ editData: data });
@@ -136,7 +139,13 @@ export default class EditContactScreen extends React.Component<Props, State> {
                     />
 
                 </View>
-                <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button>
+                <Button
+                    title="  Save  "
+                    buttonStyle={{ backgroundColor: "#B51983", marginTop: 8 }}
+                    onPress={() => this.handleSaveClick()}
+                    style={{ width: "35%" }}
+                />
+                {/* <Button title="Save" onPress={() => { this.handleSaveClick() }}></Button> */}
             </ScrollView>
         );
     }

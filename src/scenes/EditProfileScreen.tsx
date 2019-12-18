@@ -23,7 +23,7 @@ export default class EditProfileScreen extends React.Component<Props, State> {
     render() {
         return (
 
-            <View style={styles.defaultContainer}>{this.state.data ?
+            <View style={{flex:1}}>{this.state.data ?
                 <EditUserProfileTabs data={this.state.data}></EditUserProfileTabs> : null}
             </View>
         );

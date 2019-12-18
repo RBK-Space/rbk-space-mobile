@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.68.122:4000/";
+export const BASE_URL = "http://192.168.68.117:4000/";
 // export const LOGIN_URL = `${BASE_URL}bins/zyjea`;
 
 const POSTS_URL = `${BASE_URL}posts`;
@@ -6,7 +6,7 @@ const POST_Add = `${BASE_URL}user/post/add`;
 const USERS_URL = `${BASE_URL}users`;
 const USER_ID = `${BASE_URL}user/`;
 const USER_NAME_URL = `${BASE_URL}user/name/`;
-const CLIENT_HOME_PAGE_URL = `http://192.168.68.122:3000/`;
+const CLIENT_HOME_PAGE_URL = `http://192.168.68.117:3000/`;
 const CLIENT_AUTH_SUCCESS_URL = `${BASE_URL}auth/login/success`;
 const AUTH_GIHUB = `${BASE_URL}auth/github`;
 const LOGOUT_URL = `${BASE_URL}logout`;

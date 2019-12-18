@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
+import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import EditPtofileBasicInfoScreen from "../scenes/EditPtofileBasicInfoScreen";
 import UserProfile from "../data/UserProfile";
 import EditContactScreen from "../scenes/EditContactScreen";
@@ -78,9 +78,22 @@ export default class EditUserProfileTabs extends React.Component<Props> {
 
   };
 
+  renderTabBar(props) {
+    return (
+      <TabBar
+        {...props}
+        activeColor={'#B51983'}
+
+        style={{ backgroundColor: 'white' }}
+        labelStyle={{ color: '#666666', textAlign: 'center' }}
+        indicatorStyle={{ backgroundColor: '#B51983', height: 4, activeColor: "B51983" }}
+      />
+    );
+  }
   render() {
     return (
       <TabView
+        renderTabBar={this.renderTabBar}
         navigationState={this.state}
         renderScene={SceneMap({
           first: () => <EditPtofileBasicInfoScreen data={this.props.data} constants={this.state.constants} />,

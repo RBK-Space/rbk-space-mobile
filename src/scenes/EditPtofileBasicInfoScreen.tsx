@@ -3,27 +3,18 @@ import {
     View,
     ScrollView,
     Picker,
-    FlatList,
     TextInput,
-    Button,
     Alert,
-    Platform,
     Text,
     TouchableHighlight
 } from "react-native";
 import styles from "../styles/styles";
-import UserProfile from "../data/UserProfile";
-import { Avatar } from "react-native-elements";
+import { Avatar, Button, Input } from "react-native-elements";
 import ImagePicker from "react-native-image-picker";
-import { Input } from "react-native-elements";
-import TagComponent from "../components/TagComponent";
-import Skills from "../data/Skills";
 import CallAPI from "../net/ApiUtils.js";
 import URLS from "../net/ApiConst";
-import SharedPreferences from "react-native-shared-preferences";
 import DialogProgress from "react-native-dialog-progress";
 import User from "../data/User";
-import { TagSelect } from "react-native-tag-select";
 import { RNS3 } from "react-native-s3-upload";
 import config from "../../config/config.json";
 import AutoTags from "react-native-tag-autocomplete";
@@ -52,10 +43,8 @@ interface State {
     tagsSelected: any[]
 }
 
-export default class EditPtofileBasicInfoScreen extends React.Component<
-    Props,
-    State
-    > {
+export default class EditPtofileBasicInfoScreen extends React.Component<Props, State> {
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -69,7 +58,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             suggestions: this.props.constants.skills,
             tagsSelected: this.props.data.skills
 
-        };
+        }
     }
 
     uploadImage() {
@@ -78,7 +67,7 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             uri: this.state.imgUrl,
             name: `rbk-space${new Date().getTime()}.jpg`,
             type: "image/jpeg"
-        };
+        }
 
         RNS3.put(file, config.Awsconfig).then(response => {
             if (response.status !== 201) {
@@ -174,7 +163,6 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
     showImage() {
         ImagePicker.showImagePicker(options, response => {
             console.log("Response = ", response);
-
             if (response.didCancel) {
                 console.log("User cancelled image picker");
             } else if (response.error) {
@@ -274,8 +262,8 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
             );
         });
         return (
-            <ScrollView>
-                <View style={styles.defaultContainer}>
+            <ScrollView style={{ width: "100%" }}>
+                <View style={styles.loadingContainer}>
                     <Avatar
                         rounded
                         title={this.props.data.fullName ? this.props.data.fullName.substring(0, 2) : "A"}
@@ -289,25 +277,29 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         }}
                         showEditButton
                     />
-                    <Input
-                        placeholder="First Name"
-                        errorStyle={{ color: "red" }}
-                        errorMessage=""
-                        value={this.state.fullName}
-                        onChangeText={fullName => {
-                            this.setState({ fullName });
-                        }}
-                    />
+                    <View style={{ width: "100%", paddingEnd: 32, paddingStart: 8 }}>
+                        <TextInput
+                            style={styles.inputtext}
+                            placeholder="First Name"
+                            value={this.state.fullName}
+                            onChangeText={fullName => {
+                                this.setState({ fullName });
+                            }}
+                        />
+                        <TextInput
+                            multiline
+                            numberOfLines={4}
+                            style={styles.inputtext}
+                            placeholder="Bio"
+                            value={this.state.bio}
+                            onChangeText={bio => {
+                                this.setState({ bio });
+                            }}
+                        />
+                    </View>
 
-                    <TextInput
-                        multiline={true}
-                        placeholder="Bio"
-                        value={this.state.bio}
-                        onChangeText={bio => {
-                            this.setState({ bio });
-                        }}
-                    />
                     {/* <View> */}
+                    <View></View>
                     <Picker
                         mode="dropdown"
                         selectedValue={this.state.cohortId}
@@ -349,11 +341,11 @@ export default class EditPtofileBasicInfoScreen extends React.Component<
                         />
                     </View>
                     <Button
-                        title="Save"
-                        onPress={() => {
-                            this.handleSaveClick();
-                        }}
-                    ></Button>
+                        title="  Save  "
+                        buttonStyle={{ backgroundColor: "#B51983", marginTop: 8 }}
+                        onPress={() => this.handleSaveClick()}
+                        style={{ width: "100", margin: 16 }}
+                    />
                 </View>
             </ScrollView>
         );

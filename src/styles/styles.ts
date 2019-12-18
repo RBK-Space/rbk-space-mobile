@@ -158,9 +158,40 @@ export default StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
+    padding: 16,
     width: "100%",
-    height: "100%",
     alignItems: "center",
     justifyContent: "center"
+  },
+  flatlist: {
+    flex: 1
+  },
+  bio_text: {
+    alignContent: "center",
+    textAlign: "justify",
+    padding: 12,
+    fontFamily: "Georgia-Bold",
+    fontSize: 16,
+    color: "#070707",
+    alignSelf: "center"
+  },
+  title_text: {
+    textAlign: "justify",
+    fontFamily: "Georgia-Bold",
+    fontSize: 16,
+    color: "#070707",
+    fontWeight: "bold"
+  },
+  inputtext: {
+    width: "100%",
+    borderColor: "gray",
+    borderRadius: 4,
+    margin: 8,
+    borderWidth: 0.5,
+    marginEnd: 16,
+    fontSize: 15,
+    textAlignVertical: "top",
+    alignSelf: "baseline",
+    justifyContent: "flex-start"
   }
 });

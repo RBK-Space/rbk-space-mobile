@@ -3387,8 +3387,9 @@ public final class R {
     public static final int src_assets_images_ic_linkedin=0x7f06008d;
     public static final int src_assets_images_ic_logo_white=0x7f06008e;
     public static final int src_assets_images_ic_twitter=0x7f06008f;
-    public static final int tooltip_frame_dark=0x7f060090;
-    public static final int tooltip_frame_light=0x7f060091;
+    public static final int src_assets_images_rbk_logo=0x7f060090;
+    public static final int tooltip_frame_dark=0x7f060091;
+    public static final int tooltip_frame_light=0x7f060092;
   }
   public static final class id {
     public static final int ALT=0x7f070000;

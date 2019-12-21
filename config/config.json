@@ -29,8 +29,8 @@
     "keyPrefix": "uploads/",
     "bucket": "rbk-space",
     "region": "eu-central-1",
-    "accessKey": "AKIAJASNVLXKPNNIV6YQ",
-    "secretKey": "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",
+    "accessKey": "AKIAROKOFWIL3M735SSH",
+    "secretKey": "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",
     "successActionStatus": 201
   }
 }

@@ -723,8 +723,9 @@ int drawable src_assets_images_ic_github_logo 0x7f06008c
 int drawable src_assets_images_ic_linkedin 0x7f06008d
 int drawable src_assets_images_ic_logo_white 0x7f06008e
 int drawable src_assets_images_ic_twitter 0x7f06008f
-int drawable tooltip_frame_dark 0x7f060090
-int drawable tooltip_frame_light 0x7f060091
+int drawable src_assets_images_rbk_logo 0x7f060090
+int drawable tooltip_frame_dark 0x7f060091
+int drawable tooltip_frame_light 0x7f060092
 int id ALT 0x7f070000
 int id CTRL 0x7f070001
 int id FUNCTION 0x7f070002

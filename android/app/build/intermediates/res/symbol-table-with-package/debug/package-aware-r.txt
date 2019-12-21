@@ -724,6 +724,7 @@ drawable src_assets_images_ic_github_logo
 drawable src_assets_images_ic_linkedin
 drawable src_assets_images_ic_logo_white
 drawable src_assets_images_ic_twitter
+drawable src_assets_images_rbk_logo
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT

@@ -13,7 +13,10 @@ import User from "../data/User";
 import PTRView from "react-native-pull-to-refresh";
 import { Avatar, Icon, Header } from "react-native-elements";
 import { Dialog } from "react-native-paper";
-
+import {
+  CirclesLoader,
+  TextLoader,
+} from "react-native-indicator";
 export interface Props {
   data: UserItem;
   navigation?: any;
@@ -33,9 +36,10 @@ export default class ProfileScreen extends React.Component<Props, State> {
         isMine: false
       };
     } else {
-      this.state = { data: props.data, isMine: true };
-      this.refreshProfile();
+      this.state = { data: null, isMine: true };
     }
+    this.refreshProfile();
+
   }
 
   refreshProfile() {
@@ -46,6 +50,10 @@ export default class ProfileScreen extends React.Component<Props, State> {
       // if(!this.state.isMine){
       //  value = this.props.data.userI
       // }
+      var value = value;
+      if (that.state.data) {
+        value = that.state.data.userId + ""
+      }
       const config = {
         url: URLS.USER_ID + value,
         method: "GET"
@@ -114,44 +122,46 @@ export default class ProfileScreen extends React.Component<Props, State> {
     console.log('onError: ', error);
 
   }
+
+
   render() {
     // console.log("State>>>", this.state)
     if (!this.state.data)
       return (
-        <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-        >
-          <PTRView style onRefresh={this._refresh.bind(this)}>
-            <View>
-              <Text style={{ fontSize: 15 }}>User Not Found </Text>
-              <Text style={{ fontSize: 10, padding: 10 }}>
-                Swipe to refresh
-              </Text>
-            </View>
-          </PTRView>
-        </View>
+        <PTRView onRefresh={this.logout.bind(this)}>
+          <View style={{ marginTop: "65%", marginStart: "45%" }}>
+            {/* <Text style={{ fontSize: 15 }}>User Not Found </Text>
+            <Text style={{ fontSize: 10, padding: 10 }}> */}
+            {/* Swipe to login again */}
+            {/* </Text> */}
+            <CirclesLoader style={{ alignSelf: "center" }} color={"#7600AA"} />
+            <TextLoader text="loading" />
+
+          </View>
+        </PTRView>
       );
     return (
       <View style={{ flex: 1 }}>
         <PTRView
           onRefresh={this._refresh.bind(this)}
           style={{ backgroundColor: "#F2F2F2" }}>
-          <Header
-            statusBarProps={{ barStyle: 'light-content' }}
-            barStyle="light-content" // or directly
-            centerComponent={<Image source={require('../assets/images/rbk_logo.png')} style={{ width: 100, height: 50, resizeMode: "stretch" }} />}
-            rightComponent={<Icon
-              name='sign-out'
-              type='font-awesome'
-              color={"#B41D91"}
-              onPress={this.logout.bind(this)}
+          {this.state.isMine ?
+            <Header
+              statusBarProps={{ barStyle: 'light-content' }}
+              barStyle="light-content" // or directly
+              centerComponent={<Image source={require('../assets/images/rbk_logo.png')} style={{ width: 100, height: 50, resizeMode: "stretch" }} />}
+              rightComponent={<Icon
+                name='sign-out'
+                type='font-awesome'
+                color={"#B41D91"}
+                onPress={this.logout.bind(this)}
 
-            />}
-            containerStyle={{
-              backgroundColor: 'white',
-              justifyContent: 'space-around',
-            }}
-          />
+              />}
+              containerStyle={{
+                backgroundColor: 'white',
+                justifyContent: 'space-around',
+              }}
+            /> : null}
           <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
             {this.state.isMine ? (
               <Icon

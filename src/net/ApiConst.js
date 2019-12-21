@@ -1,24 +1,24 @@
-export const BASE_URL = "http://192.168.68.117:4000/";
+export const BASE_URL = "https://rbk-space01.herokuapp.com/";
 // export const LOGIN_URL = `${BASE_URL}bins/zyjea`;
 
-const POSTS_URL = `${BASE_URL}posts`;
-const POST_Add = `${BASE_URL}user/post/add`;
-const USERS_URL = `${BASE_URL}users`;
-const USER_ID = `${BASE_URL}user/`;
-const USER_NAME_URL = `${BASE_URL}user/name/`;
-const CLIENT_HOME_PAGE_URL = `http://192.168.68.117:3000/`;
+const POSTS_URL = `${BASE_URL}api/posts`;
+const POST_Add = `${BASE_URL}api/user/post/add`;
+const USERS_URL = `${BASE_URL}api/users`;
+const USER_ID = `${BASE_URL}api/user/`;
+const USER_NAME_URL = `${BASE_URL}api/user/name/`;
+const CLIENT_HOME_PAGE_URL = `https://rbk-space01.herokuapp.com/`;
 const CLIENT_AUTH_SUCCESS_URL = `${BASE_URL}auth/login/success`;
 const AUTH_GIHUB = `${BASE_URL}auth/github`;
 const LOGOUT_URL = `${BASE_URL}logout`;
-const EDIT_BASE_DATA_URL = `${BASE_URL}user/edit/basic`;
-const EDIT_CONTACT_URL = `${BASE_URL}user/edit/contact`;
-const EDIT_PORTFOILO_URL = `${BASE_URL}user/edit/portfolio`;
-const GET_SKILLS = `${BASE_URL}skills`;
-const GET_EMP = `${BASE_URL}empStatus`;
-const GET_COHORT = `${BASE_URL}cohorts`;
+const EDIT_BASE_DATA_URL = `${BASE_URL}api/user/edit/basic`;
+const EDIT_CONTACT_URL = `${BASE_URL}api/user/edit/contact`;
+const EDIT_PORTFOILO_URL = `${BASE_URL}api/user/edit/portfolio`;
+const GET_SKILLS = `${BASE_URL}api/skills`;
+const GET_EMP = `${BASE_URL}api/empStatus`;
+const GET_COHORT = `${BASE_URL}api/cohorts`;
 const POST_Image = `${BASE_URL}upload/image`;
 const GET_Auth_GITHB = `${BASE_URL}auth/github/callback`;
-const POST_EDIT_PROFILE = `${BASE_URL}user/edit/skill`;
+const POST_EDIT_PROFILE = `${BASE_URL}api/user/edit/skill`;
 
 export default URLS = {
   POSTS_URL,

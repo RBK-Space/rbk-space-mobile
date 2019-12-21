@@ -95,7 +95,7 @@ export default class HomeScreen extends React.Component<Props, State> {
                   onChangeText={this.updateSearch.bind(this)}
                   value={search}
                 />
-                <AddPost getData={this.getData.bind(this)}></AddPost>
+                <AddPost getData={this.getData.bind(this)} ></AddPost>
                 <FlatList
                   style={{ flex: 1 }}
                   data={this.state.posts}

@@ -7,7 +7,7 @@
         <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../rbk-mobile-space/gen" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../rbk-mobile-space/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/../../rbk-mobile-space/res" />
-        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../rbk-mobile-space/assets" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../rbk-mobile-space/src/assets" />
         <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../../rbk-mobile-space/libs" />
         <option name="PROGUARD_LOGS_FOLDER_RELATIVE_PATH" value="/../../rbk-mobile-space/proguard_logs" />
       </configuration>

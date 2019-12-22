@@ -139,6 +139,13 @@ android {
 }
 
 dependencies {
+
+    implementation project(':react-native-dialog-progress')
+    implementation project(':react-native-oauth')
+    implementation project(':react-native-image-picker')
+    implementation project(':@react-native-community_viewpager')
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
     implementation project(':react-native-screens')
     implementation project(':react-native-reanimated')
     implementation project(':react-native-gesture-handler')
@@ -146,6 +153,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
     addUnimodulesDependencies()
+    implementation "com.facebook.react:react-native:+"
+    implementation project(":react-native-shared-preferences") // <--- add this
+
 }
 
 // Run this once to be able to run the application with BUCK

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rbk-02/Desktop/rbk-mobile-space/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
+            "outputFile": "/Users/rbk-02/RBKMOBILE/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
-                    "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/3e7f62b92c93dd471b0dc85923362eae/res/values-en-rCA/values-en-rCA.xml",
+                    "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-rc01.aar/9f173c886197367f98b3d8aeb783eda6/res/values-en-rCA/values-en-rCA.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/core-1.0.0.aar/2a8ff49166804463459d37004f64ce00/res/values-en-rCA/values-en-rCA.xml",
+                    "source": "/Users/rbk-02/.gradle/caches/transforms-1/files-1.1/core-1.1.0-rc01.aar/d2a92d938dcb64767b9fe2eeebe4a209/res/values-en-rCA/values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
